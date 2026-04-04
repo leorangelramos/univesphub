@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    
+    <title>Pesos Semanais - Univesp | Calculadora</title>
+    <meta name="description" content="Calculadora de média ponderada das atividades semanais da Univesp (Pesos 8%, 12% e 17%). Saiba sua nota exata no AVA.">
+    <meta name="keywords" content="Univesp, Pesos Semanas, Calculadora AVA, Média Ponderada, Semana 1 a 7">
+    <meta name="author" content="Estudante Univesp">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://univespcalculadora.netlify.app/porcentagemsemanas.html">
+
+    <link rel="icon" type="image/webp" href="Univesplogo.webp">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#b71c1c">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Calculadora de Pesos Semanais - Univesp">
+    <meta property="og:description" content="Descubra sua nota real das atividades considerando os pesos difíceis (17%) e fáceis (8%).">
+    <meta property="og:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script src="lucide.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Estilos Específicos para a Grid de Semanas */
+        
+        .weeks-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Duas colunas */
+            gap: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        /* Em telas muito pequenas, vira 1 coluna */
+        @media (max-width: 400px) {
+            .weeks-grid { grid-template-columns: 1fr; }
+        }
+
+        .input-week-group label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* Badges de Peso */
+        .badge-weight {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+        .w-low { background: #e0f2f1; color: #00695c; } /* 8% - Leve */
+        .w-mid { background: #fff3e0; color: #ef6c00; } /* 12% - Médio */
+        .w-high { background: #ffebee; color: #c62828; } /* 17% - Pesado */
+
+        /* Inputs menores para caber na grid */
+        .input-week-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            text-align: center;
+            transition: border 0.2s;
+        }
+        .input-week-group input:focus { border-color: var(--primary); outline: none; }
+
+        /* Botão de Limpar */
+        .btn-clear {
+            background: white; border: 1px solid #cfd8dc; color: #546e7a;
+            width: 100%; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer;
+            margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+
+        /* Explicação (Accordion) */
+        #explain-box {
+            display: none;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            animation: fadeIn 0.3s;
+        }
+
+        .toggle-link {
+            background: none; border: none; color: var(--primary); 
+            font-size: 0.85rem; font-weight: 600; cursor: pointer; 
+            margin-top: 15px; text-decoration: underline;
+        }
+
+        /* Resultado */
+        .result-highlight {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calculadora Pesos Semanais Univesp",
+      "description": "Ferramenta para cálculo da média das atividades semanais com pesos variáveis.",
+      "author": { "@type": "Person", "name": "Estudante Univesp" }  
+    }
+    </script>
+
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+          appId: "c322be8d-cbcd-40a0-b928-5b3fff29e3ed",
+          /* Correção 1C: Removido safari_web_id placeholder */
+          notifyButton: {
+            enable: true,
+            size: 'medium',
+            theme: 'default',
+            position: 'bottom-right',
+            showCredit: false,
+            text: {
+                'tip.state.unsubscribed': 'Receber lembretes de prazos',
+                'tip.state.subscribed': 'Você está inscrito nos lembretes',
+                'tip.state.blocked': 'Você bloqueou as notificações',
+                'message.action.subscribed': 'Obrigado por se inscrever!',
+                'message.action.resubscribed': 'Você está inscrito novamente.',
+                'message.action.unsubscribed': 'Você não receberá mais lembretes.',
+                'dialog.main.title': 'Gerenciar Notificações',
+                'dialog.main.button.subscribe': 'INSCREVER',
+                'dialog.main.button.unsubscribe': 'SAIR',
+                'dialog.blocked.title': 'Desbloquear Notificações',
+                'dialog.blocked.message': 'Siga as instruções para permitir as notificações.'
+            }
+          },
+          allowLocalhostAsSecureOrigin: true,
+        });
+      });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JT80KW5HKK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JT80KW5HKK');
+
+      window.addEventListener('appinstalled', () => {
+        gtag('event', 'pwa_install', { 
+            'event_category': 'App', 
+            'event_label': 'Instalacao_Sucesso',
+            'value': 1
+        });
+      });
+    </script>
+
+</head>
+<body>
+
+    <header>
+        <h1>Pesos Semanais ⚖️</h1>
+        <p>Média Ponderada das Atividades</p>
+    </header>
+
+    <div class="container">
+        <div class="calc-container">
+            <button onclick="window.location.href='index.html'" class="btn-back">← Voltar ao Menu</button>
+
+            <button onclick="toggleExplain()" class="btn-help-link" style="width:100%; justify-content:center; margin-bottom: 20px;">
+                <i data-lucide="info" width="16"></i>
+                Como funcionam os pesos?
+            </button>
+            
+            <div id="explain-box">
+                <img src="cadasemana.webp" alt="Tabela de pesos" style="width:100%; border-radius:8px; margin-bottom:10px; border:1px solid #eee;">
+                
+                <p><strong>Nem todas as semanas valem a mesma nota.</strong></p>
+                <ul style="margin-left: 20px; margin-top: 5px;">
+                    <li>Semanas 3, 4, 5 e 6 são mais difíceis e valem <strong>17%</strong> cada.</li>
+                    <li>Semanas 2 e 7 valem <strong>12%</strong>.</li>
+                    <li>Semana 1 vale apenas <strong>8%</strong>.</li>
+                </ul>
+                <p style="margin-top:10px;">A soma total vale 10,0 na média de atividades, que corresponde a <strong>40% da Nota Final</strong> da disciplina.</p>
+            </div>
+
+            <div class="weeks-grid">
+                
+                <div class="input-week-group">
+                    <label>Semana 1 <span class="badge-weight w-low">8%</span></label>
+                    <input type="text" id="s1" placeholder="0 a 10" inputmode="decimal">
+                </div>
+
+                <div class="input-week-group">
+                    <label>Semana 2 <span class="badge-weight w-mid">12%</span></label>
+                    <input type="text" id="s2" placeholder="0 a 10" inputmode="decimal">
+                </div>
+
+                <div class="input-week-group">
+                    <label>Semana 3 <span class="badge-weight w-high">17%</span></label>
+                    <input type="text" id="s3" placeholder="0 a 10" inputmode="decimal">
+                </div>
+
+                <div class="input-week-group">
+                    <label>Semana 4 <span class="badge-weight w-high">17%</span></label>
+                    <input type="text" id="s4" placeholder="0 a 10" inputmode="decimal">
+                </div>
+
+                <div class="input-week-group">
+                    <label>Semana 5 <span class="badge-weight w-high">17%</span></label>
+                    <input type="text" id="s5" placeholder="0 a 10" inputmode="decimal">
+                </div>
+
+                <div class="input-week-group">
+                    <label>Semana 6 <span class="badge-weight w-high">17%</span></label>
+                    <input type="text" id="s6" placeholder="0 a 10" inputmode="decimal">
+                </div>
+
+                <div class="input-week-group" style="grid-column: 1 / -1;">
+                    <label>Semana 7 <span class="badge-weight w-mid">12%</span></label>
+                    <input type="text" id="s7" placeholder="0 a 10" inputmode="decimal">
+                </div>
+
+            </div>
+
+            <button onclick="calcularSemanas()" class="btn-calc">Calcular Média</button>
+            
+            <div id="resultado"></div>
+
+            <button onclick="limparSemanas()" class="btn-clear">
+                <i data-lucide="trash-2" width="16"></i> Limpar Campos
+            </button>
+
+        </div>
+    </div>
+
+    <script>
+
+        lucide.createIcons();
+
+        function toggleExplain() {
+            const box = document.getElementById('explain-box');
+            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function lerNota(id) {
+            let val = document.getElementById(id).value;
+            if (val === "") return 0; // Assume 0 se vazio
+            // Substitui vírgula por ponto
+            return parseFloat(val.replace(',', '.'));
+        }
+
+        function calcularSemanas() {
+            // Verifica se tem algo digitado em pelo menos um campo para evitar calcular tudo zero sem querer
+            let algumValor = false;
+            for(let i=1; i<=7; i++) {
+                if(document.getElementById('s'+i).value !== "") algumValor = true;
+            }
+
+            let s1 = lerNota('s1');
+            let s2 = lerNota('s2');
+            let s3 = lerNota('s3');
+            let s4 = lerNota('s4');
+            let s5 = lerNota('s5');
+            let s6 = lerNota('s6');
+            let s7 = lerNota('s7');
+
+            const notas = [s1, s2, s3, s4, s5, s6, s7];
+            
+            // Validação
+            if (notas.some(n => n < 0 || n > 10 || isNaN(n))) {
+                const res = document.getElementById('resultado');
+                res.style.display = 'block';
+                res.className = 'reprovado';
+                res.innerHTML = "Por favor, insira apenas notas válidas entre 0 e 10.";
+                return;
+            }
+
+            // Cálculo Ponderado
+            // Pesos: 8, 12, 17, 17, 17, 17, 12
+            let mediaAtiv = (s1 * 0.08) + (s2 * 0.12) + (s3 * 0.17) + (s4 * 0.17) + (s5 * 0.17) + (s6 * 0.17) + (s7 * 0.12);
+            
+            // Quanto isso vale na média final (Máximo 4.0)
+            let pontosNaMedia = mediaAtiv * 0.4;
+
+            const res = document.getElementById('resultado');
+            res.style.display = 'block';
+            res.className = 'aprovado'; // Usa estilo verde suave
+            
+            // Ajuste visual se for zero
+            if (!algumValor) {
+                res.className = '';
+                res.style.background = "#fff3e0";
+                res.style.border = "1px solid #ffe0b2";
+                res.style.color = "#e65100";
+                res.innerHTML = "Preencha as notas para calcular.";
+                return;
+            }
+
+            res.innerHTML = `
+                Média das Atividades: <span class="result-highlight">${mediaAtiv.toFixed(2)}</span> / 10
+                <hr style="margin: 10px 0; border:0; border-top:1px solid rgba(0,0,0,0.1);">
+                Pontos garantidos na Média Final:
+                <br><strong style="font-size:1.3rem;">${pontosNaMedia.toFixed(2)}</strong> <small>(de 4.0)</small>
+            `;
+        }
+
+        function limparSemanas() {
+            for(let i=1; i<=7; i++) {
+                document.getElementById('s'+i).value = '';
+            }
+            document.getElementById('resultado').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
+
+
+

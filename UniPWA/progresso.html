@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    
+    <title>Minha Grade</title>
+    
+    <meta name="description" content="Acompanhe sua trajetória na Univesp. Marque matérias aprovadas, visualize sua grade curricular completa e calcule sua porcentagem de conclusão do curso.">
+    
+    <meta name="keywords" content="Univesp, Grade Curricular, Matriz Curricular, Ciência de Dados, Engenharia de Computação, Pedagogia, Minhas Notas, Progresso Acadêmico, Calculadora Univesp">
+    
+    <meta name="author" content="Estudante Univesp">
+    
+    <link rel="icon" type="image/webp" href="Univesplogo.webp">
+    <link rel="apple-touch-icon" href="Univesplogo.webp">
+    <meta name="theme-color" content="#b71c1c">
+
+    <link rel="canonical" href="https://univespcalculadora.netlify.app/progresso.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://univespcalculadora.netlify.app/progresso.html">
+    <meta property="og:title" content="Minha Grade - Acompanhe seu Curso na Univesp">
+    <meta property="og:description" content="Gerencie quais matérias você já passou, veja o que falta para se formar e controle suas notas e PIs.">
+    <meta property="og:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Calculadora Univesp Não Oficial">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Minha Grade Univesp - Controle de Progresso">
+    <meta name="twitter:description" content="Veja quanto falta para se formar. Acompanhe sua matriz curricular dos cursos da Univesp.">
+    <meta name="twitter:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="lucide.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .progress-header { text-align: center; margin-bottom: 20px; }
+        .progress-bar-container { background: #e0e0e0; border-radius: 10px; height: 20px; width: 100%; margin: 10px 0; overflow: hidden; }
+        .progress-bar { background: var(--primary); height: 100%; width: 0%; transition: width 0.5s ease; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .stat-card { background: #f9f9f9; padding: 10px; border-radius: 8px; text-align: center; border: 1px solid #eee; }
+        .stat-card h4 { font-size: 0.8rem; color: var(--text-muted); }
+        .stat-card span { font-size: 1.2rem; font-weight: bold; color: var(--primary); }
+        
+        .semester-block { margin-bottom: 15px; border: 1px solid #eee; border-radius: 8px; overflow: hidden; }
+        .semester-title { background: #f0f0f0; padding: 12px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+        .semester-content { display: none; padding: 10px; background: #fff; }
+        .semester-content.open { display: block; }
+        
+        .subject-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #f5f5f5; }
+        .subject-info { flex: 1; text-align: left; padding-right: 10px; }
+        .subject-name { font-size: 0.85rem; font-weight: 600; display: block; line-height: 1.3; }
+        .subject-meta { font-size: 0.75rem; color: #666; display: block; margin-top: 4px; }
+        .grade-input { width: 65px; padding: 8px; border-radius: 6px; border: 1px solid #ccc; text-align: center; font-weight: bold; }
+        .status-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; margin-left: 5px; display: inline-block; }
+        .status-pending { background: #eee; color: #555; }
+        .status-ok { background: #d4edda; color: #155724; }
+        
+        .setup-screen { text-align: center; padding: 30px 20px; }
+        .app-screen { display: none; }
+        
+        select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 15px; font-size: 1rem; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Gerenciador de Grade Univesp",
+      "url": "https://univespcalculadora.netlify.app/progresso.html",
+      "description": "Ferramenta para alunos da Univesp acompanharem o progresso do curso, marcarem matérias aprovadas e visualizarem a matriz curricular.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Estudante Univesp"
+      },
+      "featureList": [
+        "Acompanhamento de progresso percentual",
+        "Matrizes curriculares de 9 cursos da Univesp",
+        "Cálculo de PIs restantes",
+        "Status de aprovação por matéria"
+      ]
+    }
+    </script>
+
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+          appId: "c322be8d-cbcd-40a0-b928-5b3fff29e3ed",
+          /* Correção 1C: Removido safari_web_id placeholder */
+          notifyButton: {
+            enable: true,
+            size: 'medium',
+            theme: 'default',
+            position: 'bottom-right',
+            showCredit: false,
+            text: {
+                'tip.state.unsubscribed': 'Receber lembretes de prazos',
+                'tip.state.subscribed': 'Você está inscrito nos lembretes',
+                'tip.state.blocked': 'Você bloqueou as notificações',
+                'message.action.subscribed': 'Obrigado por se inscrever!',
+                'message.action.resubscribed': 'Você está inscrito novamente.',
+                'message.action.unsubscribed': 'Você não receberá mais lembretes.',
+                'dialog.main.title': 'Gerenciar Notificações',
+                'dialog.main.button.subscribe': 'INSCREVER',
+                'dialog.main.button.unsubscribe': 'SAIR',
+                'dialog.blocked.title': 'Desbloquear Notificações',
+                'dialog.blocked.message': 'Siga as instruções para permitir as notificações.'
+            }
+          },
+          allowLocalhostAsSecureOrigin: true,
+        });
+      });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JT80KW5HKK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JT80KW5HKK');
+
+      window.addEventListener('appinstalled', () => {
+        gtag('event', 'pwa_install', { 
+            'event_category': 'App', 
+            'event_label': 'Instalacao_Sucesso',
+            'value': 1
+        });
+      });
+    </script>
+
+</head>
+
+
+<body>
+
+<header>
+    <h1>Minha Grade</h1>
+    <p>Acompanhe sua trajetória acadêmica.</p>
+</header>
+
+<div class="container">
+    
+    <div id="setup-screen" class="calc-container setup-screen">
+        <i data-lucide="graduation-cap" style="width: 48px; height: 48px; color: var(--primary); margin-bottom: 15px;"></i>
+        <h2>Bem-vindo!</h2>
+        <p style="margin-bottom: 20px;">Para começar, selecione o seu curso na Univesp:</p>
+        <div class="input-group">
+            <select id="course-select">
+                <option value="">Selecione seu curso...</option>
+                <optgroup label="Computação">
+                    <option value="dados">Bacharelado em Ciência de Dados</option>
+                    <option value="bti">Bacharelado em Tecnologia da Informação (BTI)</option>
+                    <option value="computacao">Engenharia de Computação</option>
+                </optgroup>
+                <optgroup label="Negócios e Produção">
+                    <option value="adm">Bacharelado em Administração</option>
+                    <option value="producao">Engenharia de Produção</option>
+                    <option value="processos">Tecnologia em Processos Gerenciais</option>
+                </optgroup>
+                <optgroup label="Licenciaturas">
+                    <option value="pedagogia">Licenciatura em Pedagogia</option>
+                    <option value="matematica">Licenciatura em Matemática</option>
+                    <option value="letras">Licenciatura em Letras</option>
+                </optgroup>
+            </select>
+        </div>
+        <button class="btn-calc" onclick="initializeCourse()">Salvar e Começar</button>
+    </div>
+
+    <div id="app-screen" class="app-screen">
+        <div class="calc-container">
+            <h2 id="course-title" style="font-size: 1.1rem; margin-bottom: 15px; color: var(--primary);"></h2>
+            
+            <div class="progress-header">
+                <div class="progress-bar-container">
+                    <div id="main-progress" class="progress-bar"></div>
+                </div>
+                <p id="progress-text" style="font-weight: bold;">0% Concluído</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>PIs Restantes</h4>
+                    <span id="pi-stats">-</span>
+                </div>
+                <div class="stat-card">
+                    <h4>TCC</h4>
+                    <span id="tcc-stats">-</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Aprovadas</h4>
+                    <span id="completed-stats">-</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Faltam</h4>
+                    <span id="remaining-stats">-</span>
+                </div>
+            </div>
+
+            <button class="btn-simular" onclick="resetCourse()" style="background-color: #ef4444; color: white; margin-bottom: 20px; font-size: 0.8rem; padding: 10px;">
+                <i data-lucide="refresh-cw" style="width: 14px; vertical-align: middle;"></i> Trocar de Curso / Resetar
+            </button>
+
+            <div id="curriculum-container">
+                </div>
+        </div>
+        
+        <button class="btn-back" onclick="window.location.href='index.html'">
+            <i data-lucide="arrow-left"></i> Voltar ao Menu
+        </button>
+    </div>
+</div>
+
+<script>
+   
+    const coursesDB = {
+
+        "dados": {
+            name: "Bacharelado em Ciência de Dados",
+            semesters: [
+                { 
+                    id: 1, 
+                    subjects: [
+                        {name:"Pensamento Computacional",ch:80},
+                        {name:"Matemática Básica",ch:80},
+                        {name:"Leitura e Produção de Textos",ch:80},
+                        {name:"Inglês",ch:80},
+                        {name:"Ética, Cidadania e Sociedade",ch:40},
+                        {name:"Projetos e métodos para a produção do conhecimento",ch:40}
+                    ] 
+                },
+                { 
+                    id: 2, 
+                    subjects: [
+                        {name:"Algoritmos e Programação de Computadores I",ch:80},
+                        {name:"Algoritmos e Programação de Computadores II",ch:80},
+                        {name:"Cálculo I",ch:80},
+                        {name:"Fundamentos Matemáticos para Computação",ch:80},
+                        {name:"Introdução a Conceitos de Computação",ch:40},
+                        {name:"Fundamentos de Internet e Web",ch:40}
+                    ] 
+                },
+                { 
+                    id: 3, 
+                    subjects: [
+                        {name:"Estruturas de Dados",ch:80},
+                        {name:"Programação Orientada a Objetos",ch:40},
+                        {name:"Gestão da Inovação e Desenvolvimento de Produtos",ch:40},
+                        {name:"Sistemas Computacionais",ch:80},
+                        {name:"Estatística e Probabilidade",ch:80},
+                        {name:"Formação Profissional em computação",ch:80},
+                    ] 
+                },
+                { 
+                    id: 4, 
+                    subjects: [
+                        {name:"Cálculo II",ch:80},
+                        {name:"Desenvolvimento web",ch:80},
+                        {name:"Introdução a Ciência de Dados",ch:80},
+                        {name:"Banco de Dados",ch:80},
+                        {name:"Projeto Integrador I",ch:80,type:"pi"}
+                    ] 
+                },
+                { 
+                    id: 5, 
+                    subjects: [
+                        {name:"Modelagem e Inferência Estatística",ch:80},
+                        {name:"Geometria Analítica e Álgebra Linear",ch:80},
+                        {name:"Mineração de Dados",ch:80},
+                        {name:"Engenharia de Software",ch:80},
+                        {name:"Projeto Integrador II",ch:80,type:"pi"}
+                    ] 
+                },
+                { 
+                    id: 6, 
+                    subjects: [
+                        {name:"Computação Escalável",ch:80},
+                        {name:"Visualização Computacional",ch:80},
+                        {name:"Aprendizado de Máquinas",ch:80},
+                        {name:"Infraestrutura para Sistemas de Software",ch:80},
+                        {name:"Projeto Integrador III",ch:80,type:"pi"}
+                    ] 
+                },
+                { 
+                    id: 7, 
+                    subjects: [
+                        {name:"Visão Computacional",ch:80},
+                        {name:"Redes Neurais",ch:80},
+                        {name:"Aprendizado Profundo",ch:80},
+                        {name:"Impactos da Computação na Sociedade",ch:80},
+                        {name:"Projeto Integrador IV",ch:80,type:"pi"}
+                    ] 
+                },
+                { 
+                    id: 8, 
+                    subjects: [
+                        {name:"Planejamento Estratégico de Negócios",ch:80},
+                        {name:"Processamento de Linguagem Natural",ch:80},
+                        {name:"Eletiva",ch:80},
+                        {name:"Segurança da Informação",ch:80},
+                        {name:"TCC",ch:80,type:"tcc"}
+                    ] 
+                }
+            ]
+        },
+
+
+        "bti": {
+            name: "Bacharelado em Tecnologia da Informação (BTI)",
+            semesters: [
+                { id: 1, subjects: [{name:"Pensamento Computacional",ch:80},{name:"Matemática Básica",ch:80},{name:"Leitura e Produção de Textos",ch:80},{name:"Inglês",ch:80},{name:"Ética, Cidadania e Sociedade",ch:40},{name:"Projetos e métodos para prod. conhecimento",ch:40}] },
+                { id: 2, subjects: [{name:"Algoritmos e Prog. de Computadores I",ch:80},{name:"Algoritmos e Prog. de Computadores II",ch:80},{name:"Cálculo I",ch:80},{name:"Fundamentos Matemáticos para Comp.",ch:80},{name:"Intro. a Conceitos de Computação",ch:40},{name:"Fundamentos de Internet e Web",ch:40},{name:"Sistemas Computacionais",ch:80},{name:"Estatística e Probabilidade",ch:80}] },
+                { id: 3, subjects: [{name:"Estruturas de Dados",ch:80},{name:"Programação Orientada a Objetos",ch:80},{name:"Gestão da Inovação e Desenv. Produtos",ch:40},{name:"Formação Profissional em Computação",ch:40},{name:"Projeto Integrador I",ch:80,type:"pi"}] },
+                { id: 4, subjects: [{name:"Banco de Dados",ch:80},{name:"Desenvolvimento Web",ch:80},{name:"Infraestrutura para Sistemas de Software",ch:80},{name:"Interface Humano-Computador",ch:80},{name:"Projeto Integrador II",ch:80,type:"pi"}] },
+                { id: 5, subjects: [{name:"Engenharia de Software",ch:80},{name:"Aplicações em Aprendizado de Máquina",ch:80},{name:"Segurança da Informação",ch:80},{name:"Desenvolvimento para Dispositivos Móveis",ch:80},{name:"Projeto Integrador III",ch:80,type:"pi"}] },
+                { id: 6, subjects: [{name:"Gerência e Qualidade de Software",ch:80},{name:"Computação Escalável",ch:80},{name:"Sistemas de Informação",ch:80},{name:"Planejamento Estratégico de Negócios",ch:80}] }
+            ]
+        },
+
+
+        "computacao": {
+            name: "Engenharia de Computação",
+            semesters: [
+                { id: 1, subjects: [{name:"Pensamento Computacional",ch:80},{name:"Matemática Básica",ch:80},{name:"Leitura e Produção de Textos",ch:80},{name:"Inglês",ch:80},{name:"Ética, Cidadania e Sociedade",ch:40},{name:"Projetos e métodos para prod. conhecimento",ch:40}] },
+                { id: 2, subjects: [{name:"Algoritmos e Prog. de Computadores I",ch:80},{name:"Algoritmos e Prog. de Computadores II",ch:80},{name:"Cálculo I",ch:80},{name:"Fundamentos Matemáticos para Comp.",ch:80},{name:"Intro. a Conceitos de Computação",ch:40},{name:"Fundamentos de Internet e Web",ch:40},{name:"Sistemas Computacionais",ch:80},{name:"Estatística e Probabilidade",ch:80}] },
+                { id: 3, subjects: [{name:"Estruturas de Dados",ch:80},{name:"Programação Orientada a Objetos",ch:80},{name:"Formação Profissional em Computação",ch:40},{name:"Gestão da Inovação e Desenv. Produtos",ch:40},{name:"Projeto Integrador I",ch:80,type:"pi"}] },
+                { id: 4, subjects: [{name:"Banco de Dados",ch:80},{name:"Cálculo II",ch:80},{name:"Física do Movimento",ch:80},{name:"Circuitos Digitais",ch:80},{name:"Projeto Integrador II",ch:80,type:"pi"}] },
+                { id: 5, subjects: [{name:"Engenharia de Software",ch:80},{name:"Sistemas Embarcados",ch:80},{name:"Protocolos de Comunicação IoT",ch:80},{name:"Geometria Analítica e Álgebra Linear",ch:80},{name:"Projeto Integrador III",ch:80,type:"pi"}] },
+                { id: 6, subjects: [{name:"Infraestrutura para Sistemas de Software",ch:80},{name:"Desenvolvimento Web",ch:80},{name:"Plataforma de Ingestão e Análise de Dados",ch:80},{name:"Interface Humano-Computador",ch:80}] },
+                { id: 7, subjects: [{name:"Mecânica dos Sólidos e dos Fluidos",ch:80},{name:"Projeto e Análise de Algoritmos",ch:80},{name:"Processamento Digital de Sinais",ch:80},{name:"Desenvolvimento para Dispositivos Móveis",ch:80},{name:"Projeto Integrador IV",ch:80,type:"pi"}] },
+                { id: 8, subjects: [{name:"Química Tecnológica e Ambiental",ch:80},{name:"Planejamento Estratégico de Negócios",ch:80},{name:"Controle e Automação",ch:80},{name:"Computação Escalável",ch:80},{name:"Projeto Integrador V",ch:80,type:"pi"}] },
+                { id: 9, subjects: [{name:"Impactos da Computação na Sociedade",ch:80},{name:"Compiladores",ch:80},{name:"Eletiva I",ch:80},{name:"Eletiva II",ch:80},{name:"Projeto Integrador VI",ch:80,type:"pi"}] },
+                { id: 10, subjects: [{name:"Cidades Inteligentes",ch:80},{name:"Legislação e Responsabilidade Profissional",ch:80},{name:"Eletiva III",ch:80},{name:"Eletiva IV",ch:80},{name:"TCC",ch:80,type:"tcc"}] }
+            ]
+        },
+
+
+
+        "adm": {
+            name: "Bacharelado em Administração",
+            semesters: [
+                { id: 1, subjects: [{name:"Pensamento Computacional",ch:80},{name:"Matemática Básica",ch:80},{name:"Leitura e Produção de Textos",ch:80},{name:"Inglês",ch:80},{name:"Ética, Cidadania e Sociedade",ch:40},{name:"Projetos e Métodos para Prod. Conhecimento",ch:40}] },
+                { id: 2, subjects: [{name:"Teoria Econômica e Economia Digital",ch:80},{name:"Comportamento Humano nas Organizações",ch:80},{name:"Estudos Organizacionais",ch:80},{name:"Gestão Contábil",ch:80},{name:"Matemática Financeira",ch:40},{name:"Estatística aplicada aos negócios",ch:40}] },
+                { id: 3, subjects: [{name:"Gestão de Pessoas",ch:80},{name:"Indicadores de Desempenho",ch:80},{name:"Sociologia",ch:80},{name:"Empreendedorismo e Inovação",ch:80},{name:"Metodologias Ágeis",ch:40},{name:"Digital Workplace e Tendências em RH",ch:40}] },
+                { id: 4, subjects: [{name:"Direito Público e Privado",ch:80},{name:"Estratégia e Governança",ch:80},{name:"Gestão da Produção e Operações",ch:80},{name:"Conceitos e Práticas de Marketing",ch:80},{name:"Projeto Integrador I",ch:80,type:"pi"}] },
+                { id: 5, subjects: [{name:"Estratégias Financeiras",ch:80},{name:"Marketing Digital",ch:80},{name:"Aprendizagem e Gestão do Conhecimento",ch:80},{name:"Gestão de Sistemas de Informação",ch:80},{name:"Projeto Integrador II",ch:80,type:"pi"}] },
+                { id: 6, subjects: [{name:"Indústria 4.0",ch:80},{name:"Organizações Digitais",ch:80},{name:"Ferramentas de Análise e BI",ch:80},{name:"Planejamento Tributário",ch:80},{name:"Projeto Integrador III",ch:80,type:"pi"}] },
+                { id: 7, subjects: [{name:"Gestão de Projetos",ch:80},{name:"Estudos Organizacionais Avançados",ch:80},{name:"Gestão da Cadeia de Suprimentos",ch:80},{name:"Política Pública e Gestão Social",ch:80},{name:"Projeto Integrador IV",ch:80,type:"pi"}] },
+                { id: 8, subjects: [{name:"Gestão da Carreira",ch:80},{name:"Economia Digital e Visão Sistêmica",ch:80},{name:"Inteligência Artificial",ch:80},{name:"Cultura, Inovação e Startups",ch:80},{name:"TCC",ch:80,type:"tcc"}] }
+            ]
+        },
+        "producao": {
+            name: "Engenharia de Produção",
+            semesters: [
+                { id: 1, subjects: [{name:"Pensamento Computacional",ch:80},{name:"Matemática Básica",ch:80},{name:"Leitura e Produção de Textos",ch:80},{name:"Inglês",ch:80},{name:"Ética, Cidadania e Sociedade",ch:40},{name:"Projetos e Métodos para Prod. Conhecimento",ch:40}] },
+                { id: 2, subjects: [{name:"Teoria Econômica",ch:80},{name:"Comportamento Humano",ch:80},{name:"Estudos Organizacionais",ch:80},{name:"Gestão Contábil",ch:80},{name:"Matemática Financeira",ch:40},{name:"Estatística aplicada aos negócios",ch:40}] },
+                { id: 3, subjects: [{name:"Algoritmos e Prog. Computadores I",ch:80},{name:"Indicadores de Desempenho",ch:80},{name:"Cálculo I",ch:80},{name:"Empreendedorismo e Inovação",ch:80},{name:"Engenharia de Produção",ch:40},{name:"Fabricação para Eng. Produção",ch:40}] },
+                { id: 4, subjects: [{name:"Cálculo II",ch:80},{name:"Desenho Técnico Assistido",ch:80},{name:"Física do Movimento",ch:80},{name:"Controle Estatístico e Qualidade",ch:80},{name:"Projeto Integrador I",ch:80,type:"pi"}] },
+                { id: 5, subjects: [{name:"Gestão de Projetos",ch:80},{name:"Pesquisa Operacional I",ch:80},{name:"Geometria Analítica e Álgebra Linear",ch:80},{name:"Pesquisa Operacional II",ch:80},{name:"Projeto Integrador II",ch:80,type:"pi"}] },
+                { id: 6, subjects: [{name:"Indústria 4.0",ch:80},{name:"Projeto e Desenv. Produto",ch:80},{name:"Ciências do Ambiente",ch:80},{name:"Simulação e Modelagem",ch:80},{name:"Projeto Integrador III",ch:80,type:"pi"}] },
+                { id: 7, subjects: [{name:"Mecânica dos Sólidos e Fluídos",ch:80},{name:"Ergonomia, Saúde e Higiene",ch:80},{name:"PCP I",ch:80},{name:"PCP II",ch:80},{name:"Projeto Integrador IV",ch:80,type:"pi"}] },
+                { id: 8, subjects: [{name:"Química Tecnológica",ch:80},{name:"Geração de Energia",ch:80},{name:"Gestão da Cadeia de Suprimentos",ch:80},{name:"Organização do Trabalho",ch:80},{name:"Projeto Integrador V",ch:80,type:"pi"}] },
+                { id: 9, subjects: [{name:"Logística, Layout e Armazenagem",ch:80},{name:"Sistemas de Custeio",ch:80},{name:"Engenharia Econômica",ch:80},{name:"Eletiva I",ch:80},{name:"Projeto Integrador VI",ch:80,type:"pi"}] },
+                { id: 10, subjects: [{name:"Manufatura Enxuta",ch:80},{name:"Gestão Estratégica",ch:80},{name:"Eletiva II",ch:80},{name:"Eletiva III",ch:80},{name:"TCC",ch:80,type:"tcc"}] }
+            ]
+        },
+        "processos": {
+            name: "Tecnologia em Processos Gerenciais",
+            semesters: [
+                { id: 1, subjects: [{name:"Pensamento Computacional",ch:80},{name:"Matemática Básica",ch:80},{name:"Leitura e Produção de Textos",ch:80},{name:"Inglês",ch:80},{name:"Ética, Cidadania e Sociedade",ch:40},{name:"Projetos e Métodos para Prod. Conhecimento",ch:40}] },
+                { id: 2, subjects: [{name:"Teoria Econômica",ch:80},{name:"Comportamento Humano",ch:80},{name:"Estudos Organizacionais",ch:80},{name:"Gestão Contábil",ch:80},{name:"Matemática Financeira",ch:40},{name:"Estatística aplicada aos negócios",ch:40}] },
+                { id: 3, subjects: [{name:"Gestão de Pessoas",ch:80},{name:"Indicadores de Desempenho",ch:80},{name:"Empreendedorismo e Inovação",ch:80},{name:"Metodologias Ágeis",ch:40},{name:"Técnicas de Negociação",ch:40}] },
+                { id: 4, subjects: [{name:"Direito Público e Privado",ch:80},{name:"Digital Workplace",ch:40},{name:"Gestão da Produção e Operações",ch:80},{name:"Projeto Integrador I",ch:80,type:"pi"}] },
+                { id: 5, subjects: [{name:"Estratégia e Governança",ch:80},{name:"Conceitos e Práticas de Marketing",ch:80},{name:"Estratégias Financeiras",ch:80},{name:"Análise e Modelagem de Processos",ch:80},{name:"Projeto Integrador II",ch:80,type:"pi"}] },
+                { id: 6, subjects: [{name:"Aprendizagem e Gestão Conhecimento",ch:80},{name:"Gestão de Sistemas de Informação",ch:80},{name:"Planejamento Estratégico",ch:80},{name:"Ferramentas de Análise e BI",ch:80},{name:"Organizações Digitais",ch:80},{name:"Logística e Distribuição",ch:80},{name:"Projeto Integrador III",ch:80,type:"pi"}] }
+            ]
+        },
+        "pedagogia": {
+            name: "Licenciatura em Pedagogia",
+            semesters: [
+                { id: 1, subjects: [{name:"Pensamento Computacional",ch:80},{name:"Matemática Básica",ch:80},{name:"Leitura e Produção de Textos",ch:80},{name:"Inglês",ch:80},{name:"Ética, Cidadania e Sociedade",ch:40},{name:"Projetos e Métodos para Prod. Conhecimento",ch:40}] },
+                { id: 2, subjects: [{name:"Fundamentos Históricos da Educação",ch:80},{name:"Avaliação Educacional",ch:80},{name:"Didática",ch:80},{name:"Psicologia da Educação",ch:80},{name:"Escola e Cultura",ch:40},{name:"Políticas Educacionais",ch:40}] },
+                { id: 3, subjects: [{name:"Teorias do Currículo",ch:80},{name:"Sociologia da Educação",ch:80},{name:"História da Educação",ch:80},{name:"Filosofia da Educação",ch:80},{name:"Projeto Integrador I",ch:80,type:"pi"}] },
+                { id: 4, subjects: [{name:"Fundamentos da Educação Infantil I",ch:80},{name:"Educação Especial e Inclusiva",ch:80},{name:"Fundamentos da Educação Infantil II",ch:80},{name:"Letramento e Libras",ch:80},{name:"Projeto Integrador II",ch:80,type:"pi"}] },
+                { id: 5, subjects: [{name:"Alfabetização e Letramento I",ch:80},{name:"Alfabetização e Letramento II",ch:80},{name:"Educação Mediada por Tecnologias",ch:80},{name:"Metodologias Ativas",ch:80},{name:"Projeto Integrador III",ch:80,type:"pi"}] },
+                { id: 6, subjects: [{name:"Ensino de Matemática",ch:80},{name:"Ensino de História",ch:80},{name:"Ensino de Geografia",ch:80},{name:"Materiais Didáticos",ch:80},{name:"Projeto Integrador IV",ch:80,type:"pi"}] },
+                { id: 7, subjects: [{name:"Organização do Trabalho Pedagógico",ch:80},{name:"Educação de Jovens e Adultos (EJA)",ch:80},{name:"Ensino de Ciências da Natureza",ch:80},{name:"Educação, Corpo e Arte",ch:80},{name:"Projeto Integrador V",ch:80,type:"pi"}] },
+                { id: 8, subjects: [{name:"Educação em Espaços Não Formais",ch:80},{name:"Literatura Infanto-Juvenil",ch:40},{name:"Gestão Escolar",ch:80},{name:"Design Educacional",ch:40},{name:"TCC",ch:200,type:"tcc"}] }
+            ]
+        },
+        "matematica": {
+            name: "Licenciatura em Matemática",
+            semesters: [
+                { id: 1, subjects: [{name:"Pensamento Computacional",ch:80},{name:"Matemática Básica",ch:80},{name:"Leitura e Produção de Textos",ch:80},{name:"Inglês",ch:80},{name:"Ética, Cidadania e Sociedade",ch:40},{name:"Projetos e Métodos para Prod. Conhecimento",ch:40}] },
+                { id: 2, subjects: [{name:"Fundamentos Históricos da Educação",ch:80},{name:"Avaliação Educacional",ch:80},{name:"Didática",ch:80},{name:"Psicologia da Educação",ch:80},{name:"Políticas Educacionais",ch:40},{name:"Escola e Cultura",ch:40}] },
+                { id: 3, subjects: [{name:"Teorias do Currículo",ch:80},{name:"Geometria Analítica",ch:80},{name:"Fundamentos da Matemática Elem.",ch:80},{name:"História da Matemática",ch:80},{name:"Projeto Integrador I",ch:80,type:"pi"}] },
+                { id: 4, subjects: [{name:"Letramento em LIBRAS",ch:80},{name:"Educação Especial e Inclusiva",ch:80},{name:"Ensino de Geometria Plana",ch:80},{name:"Planejamento para Ensino de Matemática",ch:80},{name:"Projeto Integrador II",ch:80,type:"pi"}] },
+                { id: 5, subjects: [{name:"Educação Mediada por Tecnologias",ch:80},{name:"Álgebra Linear",ch:80},{name:"Cálculo I para Licenciatura",ch:80},{name:"Didática da Matemática",ch:80},{name:"Projeto Integrador III",ch:80,type:"pi"}] },
+                { id: 6, subjects: [{name:"Geometria Espacial",ch:80},{name:"Materiais Didáticos",ch:80},{name:"Lógica e Matemática Discreta",ch:80},{name:"Cálculo II para Licenciatura",ch:80},{name:"Projeto Integrador IV",ch:80,type:"pi"}] },
+                { id: 7, subjects: [{name:"Física Geral",ch:80},{name:"Estatística",ch:80},{name:"Cálculo III",ch:80},{name:"Educação de Jovens e Adultos",ch:80},{name:"Projeto Integrador V",ch:80,type:"pi"}] },
+                { id: 8, subjects: [{name:"Elementos de Álgebra",ch:80},{name:"Cálculo IV",ch:80},{name:"Práticas para Ensino de Matemática",ch:40},{name:"Design Educacional",ch:40},{name:"TCC",ch:200,type:"tcc"}] }
+            ]
+        },
+        "letras": {
+            name: "Licenciatura em Letras",
+            semesters: [
+                { id: 1, subjects: [{name:"Pensamento Computacional",ch:80},{name:"Matemática Básica",ch:80},{name:"Leitura e Produção de Textos",ch:80},{name:"Inglês",ch:80},{name:"Ética, Cidadania e Sociedade",ch:40},{name:"Projetos e Métodos para Prod. Conhecimento",ch:40}] },
+                { id: 2, subjects: [{name:"Fundamentos Históricos da Educação",ch:80},{name:"Avaliação Educacional",ch:80},{name:"Didática",ch:80},{name:"Psicologia da Educação",ch:80},{name:"Escola e Cultura",ch:40},{name:"Políticas Educacionais",ch:40}] },
+                { id: 3, subjects: [{name:"Teorias do Currículo",ch:80},{name:"Introdução à Linguística",ch:80},{name:"Teoria da Literatura",ch:80},{name:"Gramática: Morfologia",ch:80},{name:"Projeto Integrador I",ch:80,type:"pi"}] },
+                { id: 4, subjects: [{name:"Laboratório de Produção Textual",ch:80},{name:"Linguagem e Significação",ch:80},{name:"Educação Especial e Inclusiva",ch:80},{name:"Letramento em Libras",ch:80},{name:"Projeto Integrador II",ch:80,type:"pi"}] },
+                { id: 5, subjects: [{name:"Introdução à Fonética e Fonologia",ch:80},{name:"Gramática: Sintaxe",ch:80},{name:"Educação Mediada por Tecnologias",ch:80},{name:"Literatura e Cultura Brasileira",ch:80},{name:"Projeto Integrador III",ch:80,type:"pi"}] },
+                { id: 6, subjects: [{name:"Oralidade e Gêneros",ch:80},{name:"Gramática: Usos e Normas",ch:80},{name:"Aquisição da Linguagem Escrita",ch:80},{name:"Materiais Didáticos",ch:80},{name:"Projeto Integrador IV",ch:80,type:"pi"}] },
+                { id: 7, subjects: [{name:"Estudos de Literatura",ch:80},{name:"Ensino e Aprendizagem de Língua",ch:80},{name:"Semântica",ch:80},{name:"Educação de Jovens e Adultos",ch:80},{name:"Projeto Integrador V",ch:80,type:"pi"}] },
+                { id: 8, subjects: [{name:"Texto e Discurso",ch:80},{name:"Variação Linguística",ch:80},{name:"Literatura Infanto-Juvenil",ch:40},{name:"Design Educacional",ch:40},{name:"TCC",ch:200,type:"tcc"}] }
+            ]
+        }
+    };
+
+    // --- LÓGICA DO SISTEMA ---
+    const STORAGE_KEY = 'univesp_my_progress_v2';
+    let userData = {};
+
+    document.addEventListener("DOMContentLoaded", () => {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+        loadData();
+    });
+
+    function loadData() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            try {
+                userData = JSON.parse(stored);
+                if (userData.courseId && coursesDB[userData.courseId]) {
+                    showAppScreen();
+                    renderCurriculum();
+                    updateStats();
+                } else {
+                    showSetupScreen();
+                }
+            } catch (e) {
+                console.error("Erro ao carregar dados", e);
+                showSetupScreen();
+            }
+        } else {
+            showSetupScreen();
+        }
+    }
+
+    function showSetupScreen() {
+        document.getElementById('setup-screen').style.display = 'block';
+        document.getElementById('app-screen').style.display = 'none';
+    }
+
+    function showAppScreen() {
+        document.getElementById('setup-screen').style.display = 'none';
+        document.getElementById('app-screen').style.display = 'block';
+    }
+
+    function initializeCourse() {
+        const select = document.getElementById('course-select');
+        const courseId = select.value;
+        if (!courseId) return alert('Por favor, selecione um curso!');
+
+        userData = {
+            courseId: courseId,
+            grades: {} 
+        };
+        saveData();
+        showAppScreen();
+        renderCurriculum();
+        updateStats();
+    }
+
+    function resetCourse() {
+        if(confirm("Tem certeza? Isso apagará todas as suas notas salvas e progresso.")) {
+            localStorage.removeItem(STORAGE_KEY);
+            userData = {};
+            location.reload();
+        }
+    }
+
+    function saveData() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+        updateStats();
+    }
+
+    function updateGrade(subjectName, value) {
+        let cleanValue = value.replace(',', '.');
+        
+        if (cleanValue === "") {
+            delete userData.grades[subjectName];
+        } else {
+            userData.grades[subjectName] = parseFloat(cleanValue);
+        }
+        saveData();
+        
+        // Atualiza visual
+        const safeId = btoa(unescape(encodeURIComponent(subjectName)));
+        const inputEl = document.getElementById(`grade-${safeId}`);
+        const badgeEl = document.getElementById(`badge-${safeId}`);
+        
+        if (!inputEl) return;
+
+        if (userData.grades[subjectName] >= 5) {
+            inputEl.style.borderColor = "#2e7d32";
+            inputEl.style.backgroundColor = "#e8f5e9";
+            inputEl.style.color = "#1b5e20";
+            if (badgeEl) {
+                badgeEl.className = "status-badge status-ok";
+                badgeEl.innerText = "Aprovado";
+            }
+        } else if (cleanValue !== "") {
+            inputEl.style.borderColor = "#c62828";
+            inputEl.style.backgroundColor = "#ffebee";
+            inputEl.style.color = "#b71c1c";
+            if (badgeEl) {
+                badgeEl.className = "status-badge status-pending";
+                badgeEl.innerText = "Reprovado";
+            }
+        } else {
+            inputEl.style.borderColor = "#ccc";
+            inputEl.style.backgroundColor = "white";
+            inputEl.style.color = "black";
+            if (badgeEl) {
+                badgeEl.className = "status-badge status-pending";
+                badgeEl.innerText = "Pendente";
+            }
+        }
+        updateStats(); // Atualiza a barra geral quando muda nota
+    }
+
+    function renderCurriculum() {
+        const container = document.getElementById('curriculum-container');
+        container.innerHTML = '';
+        const course = coursesDB[userData.courseId];
+        
+        if(!course) return; 
+
+        document.getElementById('course-title').innerText = course.name;
+
+        course.semesters.forEach(sem => {
+            const semBlock = document.createElement('div');
+            semBlock.className = 'semester-block';
+            
+            // Verifica se o semestre está completo para marcar ícone
+            const totalSubjects = sem.subjects.length;
+            let approvedCount = 0;
+            sem.subjects.forEach(sub => {
+                if((userData.grades[sub.name] || 0) >= 5) approvedCount++;
+            });
+            const isComplete = approvedCount === totalSubjects;
+            
+            // Ícones condicionais
+            let iconHtml = '<i data-lucide="chevron-down" style="width:18px;"></i>';
+            if (isComplete) {
+                iconHtml = '<i data-lucide="check-circle" style="color:green; width:18px;"></i>';
+            }
+
+            const bgTitle = isComplete ? '#e8f5e9' : '#f0f0f0';
+
+            semBlock.innerHTML = `
+                <div class="semester-title" style="background:${bgTitle}" onclick="toggleSemester(${sem.id})">
+                    <span>${sem.id}º Semestre</span>
+                    <span>${iconHtml}</span>
+                </div>
+                <div id="sem-content-${sem.id}" class="semester-content"></div>
+            `;
+            
+            container.appendChild(semBlock);
+            
+            const contentDiv = semBlock.querySelector(`.semester-content`);
+            sem.subjects.forEach(sub => {
+                const safeId = btoa(unescape(encodeURIComponent(sub.name)));
+                const savedGrade = userData.grades[sub.name] !== undefined ? userData.grades[sub.name] : '';
+                
+                let statusClass = "status-pending";
+                let statusText = "Pendente";
+                let styleInput = "";
+
+                if (savedGrade !== '' && savedGrade >= 5) {
+                    statusClass = "status-ok";
+                    statusText = "Aprovado";
+                    styleInput = "background-color: #e8f5e9; border-color: #2e7d32; color: #1b5e20;";
+                } else if (savedGrade !== '') {
+                    styleInput = "background-color: #ffebee; border-color: #c62828; color: #b71c1c;";
+                    statusText = "Reprovado";
+                }
+
+                const item = document.createElement('div');
+                item.className = 'subject-item';
+                item.innerHTML = `
+                    <div class="subject-info">
+                        <span class="subject-name">${sub.name}</span>
+                        <span class="subject-meta">${sub.ch}h • <span id="badge-${safeId}" class="status-badge ${statusClass}">${statusText}</span></span>
+                    </div>
+                    <input type="number" 
+                        id="grade-${safeId}"
+                        class="grade-input" 
+                        placeholder="Nota" 
+                        min="0" max="10" 
+                        step="0.1"
+                        value="${savedGrade}"
+                        style="${styleInput}"
+                        onblur="updateGrade('${sub.name}', this.value)"
+                    >
+                `;
+                contentDiv.appendChild(item);
+            });
+        });
+        
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    }
+
+    function toggleSemester(id) {
+        const content = document.getElementById(`sem-content-${id}`);
+        content.classList.toggle('open');
+    }
+
+    function updateStats() {
+        const course = coursesDB[userData.courseId];
+        if(!course) return;
+
+        let totalSubjects = 0;
+        let completedSubjects = 0;
+        let totalPI = 0;
+        let completedPI = 0;
+        let hasTCC = false;
+        let tccStatus = "Não";
+
+        course.semesters.forEach(sem => {
+            sem.subjects.forEach(sub => {
+                totalSubjects++;
+                const grade = userData.grades[sub.name] || 0;
+                const approved = grade >= 5;
+
+                if (approved) completedSubjects++;
+
+                if (sub.type === 'pi') {
+                    totalPI++;
+                    if (approved) completedPI++;
+                }
+
+                if (sub.type === 'tcc') {
+                    hasTCC = true;
+                    if (approved) tccStatus = "OK";
+                    else tccStatus = "Pendente";
+                }
+            });
+        });
+
+        const percentage = totalSubjects > 0 ? Math.round((completedSubjects / totalSubjects) * 100) : 0;
+        document.getElementById('main-progress').style.width = percentage + '%';
+        document.getElementById('progress-text').innerText = percentage + '% Concluído';
+
+        document.getElementById('pi-stats').innerText = (totalPI - completedPI);
+        document.getElementById('tcc-stats').innerText = hasTCC ? tccStatus : "-";
+        document.getElementById('completed-stats').innerText = completedSubjects;
+        document.getElementById('remaining-stats').innerText = (totalSubjects - completedSubjects);
+    }
+</script>
+
+</body>
+</html>
+
+
+

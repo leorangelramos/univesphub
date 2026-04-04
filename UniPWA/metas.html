@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    
+    <title>Prazos Críticos - Dashboard do Aluno | Univesp</title>
+    
+    <meta name="description" content="Gerencie e acompanhe todos os seus prazos acadêmicos críticos da Univesp em um só lugar: Atividades AVA, Prova Final, PI, TCC e Exame. Contagem regressiva em tempo real.">
+    
+    <meta name="keywords" content="Univesp, Prazos, Calendário, Prova Final, PI, TCC, Exame, Contagem Regressiva, Dashboard, Calculadora Univesp">
+    
+    <meta name="author" content="Estudante Univesp">
+    
+    <link rel="icon" type="image/webp" href="Univesplogo.webp">
+    <link rel="apple-touch-icon" href="Univesplogo.webp">
+    <meta name="theme-color" content="#b71c1c">
+
+    <link rel="canonical" href="https://univespcalculadora.netlify.app/metas.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://univespcalculadora.netlify.app/metas.html">
+    <meta property="og:title" content="Dashboard de Prazos Críticos Univesp">
+    <meta property="og:description" content="Nunca perca um prazo! Calendário personalizado e contagem regressiva para todas as entregas importantes do semestre.">
+    <meta property="og:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Calculadora Univesp Não Oficial">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Prazos Críticos Univesp - Não Oficial">
+    <meta name="twitter:description" content="Gerencie em tempo real as datas de AVA, Provas, PI, TCC e Exame.">
+    <meta name="twitter:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="lucide.js"></script>
+    <link rel="stylesheet" href="main.css"> <style>
+        /* Estilos específicos para o Dashboard de Prazos */
+        
+        .prazos-form h2 { 
+            font-size: 1.02rem; /* 1.2rem - 15% */
+            color: var(--primary);
+            margin-top: 17px; /* 20px - 15% */
+            margin-bottom: 8.5px; /* 10px - 15% */
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8.5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .input-group-date { 
+            margin-bottom: 12.75px; /* 15px - 15% */ 
+            text-align: left;
+        }
+        .input-group-date label { 
+            display: block; 
+            font-weight: 600; 
+            margin-bottom: 5.1px; 
+            font-size: 0.765rem; 
+            color: var(--text-main); 
+        }
+        .input-group-date input[type="date"] {
+            width: 100%; 
+            padding: 11.9px; /* 14px - 15% */ 
+            border: 1px solid #e5e7eb; 
+            border-radius: 8.5px; 
+            font-size: 13.6px; 
+            background-color: #f9fafb;
+        }
+
+        /* Seção de Timer e Alerta */
+        #prazos-list { 
+            margin-top: 25.5px; /* 30px - 15% */
+        }
+        .prazos-item {
+            background-color: #f9fafb;
+            border: 1px solid #eee;
+            padding: 17px; /* 20px - 15% */
+            border-radius: var(--radius);
+            margin-bottom: 12.75px; /* 15px - 15% */
+            text-align: left;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .prazos-item h3 {
+            font-size: 0.85rem; /* 1rem - 15% */
+            margin: 0;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .timer-display {
+            font-size: 1.275rem; /* 1.5rem - 15% */
+            font-weight: 700;
+            color: #10b981; /* Verde Sucesso */
+            margin-top: 5px;
+            display: block;
+        }
+
+        .timer-display.expirado {
+            color: var(--error-text);
+            font-size: 1.02rem;
+        }
+
+        .timer-display.perigo {
+            color: #f59e0b; /* Amarelo Perigo */
+        }
+        
+        .timer-display small {
+            font-size: 0.68rem; /* 0.8rem - 15% */
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .info-data {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Estilo para Radio/Checkbox personalizado */
+        .radio-group { 
+            display: flex; 
+            gap: 17px; 
+            margin-bottom: 12.75px; /* 15px - 15% */
+        }
+        .radio-group label { 
+            display: flex; 
+            align-items: center; 
+            font-weight: 500;
+            font-size: 0.765rem;
+            cursor: pointer;
+        }
+
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Dashboard de Prazos Críticos Univesp",
+      "url": "https://univespcalculadora.netlify.app/metas.html",
+      "description": "Ferramenta essencial para alunos da Univesp acompanharem prazos de provas, PI, TCC e Exame com contagem regressiva e alertas.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Estudante Univesp"
+      },
+      "featureList": [
+        "Contagem regressiva em tempo real",
+        "Gestão de prazos de AVA e Provas",
+        "Controle de entrega de PI e TCC",
+        "Alerta para Exame (Recuperação)"
+      ]
+    }
+    </script>
+
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+          appId: "c322be8d-cbcd-40a0-b928-5b3fff29e3ed",
+          /* Removido safari_web_id placeholder (como no progresso.html) */
+          notifyButton: {
+            enable: true,
+            size: 'medium',
+            theme: 'default',
+            position: 'bottom-right',
+            showCredit: false,
+            text: {
+                'tip.state.unsubscribed': 'Receber lembretes de prazos',
+                'tip.state.subscribed': 'Você está inscrito nos lembretes',
+                'tip.state.blocked': 'Você bloqueou as notificações',
+                'message.action.subscribed': 'Obrigado por se inscrever!',
+                'message.action.resubscribed': 'Você está inscrito novamente.',
+                'message.action.unsubscribed': 'Você não receberá mais lembretes.',
+                'dialog.main.title': 'Gerenciar Notificações',
+                'dialog.main.button.subscribe': 'INSCREVER',
+                'dialog.main.button.unsubscribe': 'SAIR',
+                'dialog.blocked.title': 'Desbloquear Notificações',
+                'dialog.blocked.message': 'Siga as instruções para permitir as notificações.'
+            }
+          },
+          allowLocalhostAsSecureOrigin: true,
+        });
+      });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JT80KW5HKK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JT80KW5HKK');
+
+      window.addEventListener('appinstalled', () => {
+        gtag('event', 'pwa_install', { 
+            'event_category': 'App', 
+            'event_label': 'Instalacao_Sucesso',
+            'value': 1
+        });
+      });
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <h1>Prazos Críticos</h1>
+        <p>Gerencie as datas de provas, PI, TCC e Exame.</p>
+    </header>
+
+    <div class="container">
+        <div class="calc-container prazos-form">
+            
+            <h2 id="section-atividade"><i data-lucide="calendar-check"></i> Atividades Semanais (AVA)</h2>
+            <p class="info-data">Geralmente a data limite para as 7 atividades é a mesma.</p>
+            <div class="input-group-date">
+                <label for="date-ava">Data Limite da Última Atividade Semanal (AVA):</label>
+                <input type="date" id="date-ava">
+            </div>
+
+            <h2 id="section-prova"><i data-lucide="pen-tool"></i> Prova Final (Presencial)</h2>
+            <div class="input-group-date">
+                <label for="date-prova">Data da Prova Final:</label>
+                <input type="date" id="date-prova">
+            </div>
+
+            <h2 id="section-pi"><i data-lucide="users"></i> Projeto Integrador (PI)</h2>
+            <div class="radio-group">
+                <input type="checkbox" id="check-pi" onchange="togglePiDate()">
+                <label for="check-pi">Tenho que entregar PI este semestre</label>
+            </div>
+            <div class="input-group-date" id="group-pi-date" style="display: none;">
+                <label for="date-pi">Data de Entrega Final do PI:</label>
+                <input type="date" id="date-pi">
+            </div>
+
+            <h2 id="section-tcc"><i data-lucide="graduation-cap"></i> TCC (Trabalho de Conclusão)</h2>
+            <div class="radio-group">
+                <input type="checkbox" id="check-tcc" onchange="toggleTccDate()">
+                <label for="check-tcc">Tenho que entregar TCC este semestre</label>
+            </div>
+            <div class="input-group-date" id="group-tcc-date" style="display: none;">
+                <label for="date-tcc">Data de Entrega Final do TCC:</label>
+                <input type="date" id="date-tcc">
+            </div>
+
+            <h2 id="section-exame"><i data-lucide="alert-triangle"></i> Exame (Recuperação)</h2>
+            <div class="radio-group">
+                <input type="checkbox" id="check-exame" onchange="toggleExameDate()">
+                <label for="check-exame">Fiquei de Exame/Recuperação</label>
+            </div>
+            <div class="input-group-date" id="group-exame-date" style="display: none;">
+                <label for="date-exame">Data da Prova de Exame:</label>
+                <input type="date" id="date-exame">
+            </div>
+            
+            <button class="btn-calc" onclick="savePrazos()">
+                <i data-lucide="save" style="width: 18px; vertical-align: middle;"></i> Salvar Prazos
+            </button>
+            <button class="btn-simular" onclick="clearPrazos()" style="background-color: #f59e0b; color: white;">
+                <i data-lucide="trash-2" style="width: 14px; vertical-align: middle;"></i> Limpar Todos os Prazos
+            </button>
+        </div>
+
+        <div id="prazos-list" class="calc-container">
+            <h2 style="margin-top: 0; margin-bottom: 15px;"><i data-lucide="clock"></i> Contagem Regressiva</h2>
+            <div id="countdown-container">
+                <p style="text-align: center; color: var(--text-muted);">
+                    Salve os prazos acima para iniciar a contagem.
+                </p>
+            </div>
+        </div>
+        
+        <button class="btn-back" onclick="window.location.href='index.html'">
+            <i data-lucide="arrow-left"></i> Voltar ao Menu
+        </button>
+    </div>
+
+    <script>
+        const PRAZOS_KEY = 'univesp_prazos_criticos_v1';
+        let prazos = {};
+        let intervalId;
+
+        // Lista de campos críticos (ID do input e Label)
+        const CRITICAL_DATES = [
+            { id: 'date-ava', name: 'Atividades Semanais (AVA)', type: 'date', check: null, icon: 'calendar-check' },
+            { id: 'date-prova', name: 'Prova Final Presencial', type: 'date', check: null, icon: 'pen-tool' },
+            { id: 'date-pi', name: 'Projeto Integrador (PI)', type: 'date', check: 'check-pi', icon: 'users' },
+            { id: 'date-tcc', name: 'TCC (Trabalho de Conclusão)', type: 'date', check: 'check-tcc', icon: 'graduation-cap' },
+            { id: 'date-exame', name: 'Exame/Recuperação', type: 'date', check: 'check-exame', icon: 'alert-triangle' }
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+            loadPrazos();
+        });
+
+        function loadPrazos() {
+            const stored = localStorage.getItem(PRAZOS_KEY);
+            if (stored) {
+                try {
+                    prazos = JSON.parse(stored);
+                } catch (e) {
+                    console.error("Erro ao carregar prazos", e);
+                    prazos = {};
+                }
+            }
+            // Renderiza o formulário com os dados salvos
+            fillForm();
+            // Inicia o timer
+            startCountdownTimer();
+        }
+
+        function saveData() {
+            localStorage.setItem(PRAZOS_KEY, JSON.stringify(prazos));
+        }
+
+        function fillForm() {
+            // Preenche os campos de data e os checkboxes
+            CRITICAL_DATES.forEach(item => {
+                const dateInput = document.getElementById(item.id);
+                if (dateInput) {
+                    dateInput.value = prazos[item.id] || '';
+                }
+                
+                const checkInput = document.getElementById(item.check);
+                if (checkInput) {
+                    checkInput.checked = prazos[item.check] === true;
+                    // Força a exibição/ocultação do campo de data
+                    if (item.check === 'check-pi') togglePiDate(false);
+                    if (item.check === 'check-tcc') toggleTccDate(false);
+                    if (item.check === 'check-exame') toggleExameDate(false);
+                }
+            });
+        }
+
+        function togglePiDate(save=true) {
+            const isChecked = document.getElementById('check-pi').checked;
+            document.getElementById('group-pi-date').style.display = isChecked ? 'block' : 'none';
+            if (save) saveCheckState('check-pi', isChecked);
+        }
+
+        function toggleTccDate(save=true) {
+            const isChecked = document.getElementById('check-tcc').checked;
+            document.getElementById('group-tcc-date').style.display = isChecked ? 'block' : 'none';
+            if (save) saveCheckState('check-tcc', isChecked);
+        }
+
+        function toggleExameDate(save=true) {
+            const isChecked = document.getElementById('check-exame').checked;
+            document.getElementById('group-exame-date').style.display = isChecked ? 'block' : 'none';
+            if (save) saveCheckState('check-exame', isChecked);
+        }
+        
+        function saveCheckState(id, isChecked) {
+            prazos[id] = isChecked;
+        }
+
+        function savePrazos() {
+            // Salva todas as datas e estados dos checkboxes
+            CRITICAL_DATES.forEach(item => {
+                const dateInput = document.getElementById(item.id);
+                if (dateInput) {
+                    prazos[item.id] = dateInput.value;
+                }
+                const checkInput = document.getElementById(item.check);
+                if (checkInput) {
+                    prazos[item.check] = checkInput.checked;
+                }
+            });
+
+            saveData();
+            alert("Prazos salvos com sucesso!");
+            startCountdownTimer(); // Reinicia o timer com os novos dados
+        }
+
+        function clearPrazos() {
+            if(confirm("Tem certeza? Isso apagará todos os prazos salvos.")) {
+                localStorage.removeItem(PRAZOS_KEY);
+                prazos = {};
+                location.reload();
+            }
+        }
+
+        // --- LÓGICA DO TIMER ---
+
+        function formatCountdown(targetDate) {
+            // Tenta pegar a data às 23:59:59 para dar o dia inteiro
+            const target = new Date(targetDate + 'T23:59:59'); 
+            const now = new Date();
+            const diff = target - now;
+
+            if (diff <= 0) {
+                return { text: "Prazo Expirado", class: "expirado" };
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            let text = "";
+            let cssClass = "";
+
+            if (days > 7) {
+                 text = `${days} dias restantes.`;
+            } else if (days > 0) {
+                text = `${days}d ${hours}h ${minutes}m`;
+                cssClass = "perigo";
+            } else { // Menos de 24h
+                text = `${hours}h ${minutes}m ${seconds}s`;
+                cssClass = "expirado"; // Usa 'expirado' como ALERTA DE HORA
+            }
+            
+            const dateDisplay = new Date(targetDate + 'T00:00:00').toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+            return { text: text, class: cssClass, fullDate: dateDisplay };
+        }
+
+        function renderCountdown() {
+            const container = document.getElementById('countdown-container');
+            container.innerHTML = '';
+            
+            const activePrazos = [];
+
+            CRITICAL_DATES.forEach(item => {
+                const hasDate = !!prazos[item.id];
+                const isChecked = item.check ? prazos[item.check] === true : true; // Sem checkbox é sempre ativo
+                
+                if (hasDate && isChecked) {
+                    activePrazos.push({
+                        ...item,
+                        targetDate: prazos[item.id]
+                    });
+                }
+            });
+            
+            if (activePrazos.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Nenhum prazo ativo. Salve as datas acima.</p>';
+                return;
+            }
+
+            // Ordena pelo mais próximo
+            activePrazos.sort((a, b) => new Date(a.targetDate) - new Date(b.targetDate));
+            
+            activePrazos.forEach(item => {
+                const countdown = formatCountdown(item.targetDate);
+                
+                const div = document.createElement('div');
+                div.className = 'prazos-item';
+                div.innerHTML = `
+                    <h3>
+                        <i data-lucide="${item.icon}" style="width: 18px; vertical-align: middle; margin-right: 5px;"></i>
+                        ${item.name}
+                        <small style="font-weight: 500;">Data: ${countdown.fullDate}</small>
+                    </h3>
+                    <span class="timer-display ${countdown.class}">
+                        ${countdown.text}
+                    </span>
+                `;
+                container.appendChild(div);
+            });
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+        
+        function startCountdownTimer() {
+            if(intervalId) clearInterval(intervalId); // Limpa o anterior
+            renderCountdown(); // Renderiza imediatamente
+            intervalId = setInterval(renderCountdown, 1000); 
+        }
+
+    </script>
+</body>
+</html>

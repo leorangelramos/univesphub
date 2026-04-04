@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Calendário Acadêmico Univesp 2026 - Datas, Prazos e Matrículas</title>
+    <meta name="description" content="Calendário Acadêmico 2026 da Univesp completo. Datas de renovação de matrícula, escolha de grupos de PI, provas, exames e início das aulas.">
+    <meta name="keywords" content="Calendário Univesp 2026, Renovação de Matrícula Univesp, Datas Provas, Escolha Grupo PI, Início Aulas 2026">
+    <meta name="author" content="Univesp Calculadora">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://univespcalculadora.netlify.app/calendario.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://univespcalculadora.netlify.app/calendario.html">
+    <meta property="og:title" content="Calendário Univesp 2026 - Oficial e Completo">
+    <meta property="og:description" content="Confira todas as datas: Matrículas, PI, Provas e Exames de 2026.">
+    <meta property="og:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
+
+    <link rel="icon" type="image/webp" href="Univesplogo.webp">
+    <meta name="theme-color" content="#b71c1c">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script src="lucide.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* CSS ESPECÍFICO DO CALENDÁRIO */
+        
+        .alert-box {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 30px;
+            text-align: left;
+            line-height: 1.5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .bimestre-block {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .bimestre-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #f5f5f5;
+            padding-bottom: 10px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid #e0e0e0;
+            margin-left: 5px;
+        }
+
+        .event-item {
+            position: relative;
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+        
+        .event-item:last-child { margin-bottom: 0; }
+
+        /* Marcador da linha do tempo */
+        .event-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background-color: #fff;
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .event-date {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .event-desc {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* Tipos de Eventos */
+        .event-item.important::before {
+            background-color: #ff9800;
+            border-color: #ff9800;
+        }
+        .event-item.important .event-date { color: #e65100; }
+        .event-item.important { background-color: #fff8e1; padding: 10px 10px 10px 20px; border-radius: 0 8px 8px 0; margin-left: -20px; width: calc(100% + 20px); }
+
+        .event-item.admin::before { border-color: #2196f3; }
+        .event-item.admin .event-date { color: #1565c0; }
+
+        .btn-official {
+            background-color: var(--text-main);
+            color: white;
+            width: 100%;
+            padding: 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .btn-official:hover { background-color: #000; transform: translateY(-2px); }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Schedule",
+      "name": "Calendário Acadêmico Univesp 2026",
+      "description": "Cronograma oficial completo do ano letivo 2026 da Univesp.",
+      "event": [
+        { "@type": "EducationEvent", "name": "Ano Novo", "startDate": "2026-01-01", "description": "Feriado Nacional" },
+        { "@type": "EducationEvent", "name": "Resultados Transferência Polo", "startDate": "2026-01-06", "description": "Divulgação dos resultados" },
+        { "@type": "EducationEvent", "name": "Renovação de Matrícula e DPs", "startDate": "2026-01-08", "endDate": "2026-01-14", "description": "Prazo administrativo importante" },
+        { "@type": "EducationEvent", "name": "Escolha de Grupos PI/TCC", "startDate": "2026-01-13", "endDate": "2026-01-17", "description": "Definição de grupos" },
+        { "@type": "EducationEvent", "name": "Colação de Grau 2025/1", "startDate": "2026-01-21", "description": "Colação de grau extraordinária" },
+        { "@type": "EducationEvent", "name": "Início das Aulas 2026", "startDate": "2026-01-26", "description": "Início do 1º Semestre Letivo" },
+        { "@type": "EducationEvent", "name": "Provas Regulares 1º Bimestre", "startDate": "2026-03-16", "endDate": "2026-03-27", "description": "Avaliações presenciais do 1º bimestre" },
+        { "@type": "EducationEvent", "name": "Provas Regulares 2º Bimestre", "startDate": "2026-05-18", "endDate": "2026-05-29", "description": "Avaliações presenciais do 2º bimestre" }
+      ]
+    }
+    </script>
+    
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+          appId: "c322be8d-cbcd-40a0-b928-5b3fff29e3ed",
+          safari_web_id: "web.onesignal.auto.xxxxx",
+          notifyButton: {
+            enable: true,
+            size: 'medium',
+            theme: 'default',
+            position: 'bottom-right',
+            showCredit: false,
+            text: {
+                'tip.state.unsubscribed': 'Receber lembretes de prazos',
+                'tip.state.subscribed': 'Você está inscrito nos lembretes',
+                'tip.state.blocked': 'Você bloqueou as notificações',
+                'message.action.subscribed': 'Obrigado por se inscrever!',
+                'message.action.resubscribed': 'Você está inscrito novamente.',
+                'message.action.unsubscribed': 'Você não receberá mais lembretes.',
+                'dialog.main.title': 'Gerenciar Notificações',
+                'dialog.main.button.subscribe': 'INSCREVER',
+                'dialog.main.button.unsubscribe': 'SAIR',
+                'dialog.blocked.title': 'Desbloquear Notificações',
+                'dialog.blocked.message': 'Siga as instruções para permitir as notificações.'
+            }
+          },
+          allowLocalhostAsSecureOrigin: true,
+        });
+      });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JT80KW5HKK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JT80KW5HKK');
+
+      window.addEventListener('appinstalled', () => {
+        gtag('event', 'pwa_install', { 
+            'event_category': 'App', 
+            'event_label': 'Instalacao_Sucesso',
+            'value': 1
+        });
+      });
+    </script>
+
+
+
+</head>
+<body>
+
+    <header>
+        <h1>Calendário 2026 📅</h1>
+        <p>Cronograma Oficial Completo</p>
+    </header>
+
+    <div class="container">
+        <div class="calc-container">
+
+            <div class="alert-box">
+                <i data-lucide="check-circle" width="24"></i>
+                <div>
+                    <strong>Calendário:</strong> As informações abaixo são do cronograma do 1º Semestre de 2026.
+                </div>
+            </div>
+
+            <a href="https://apps.univesp.br/manual-do-aluno/calendario-academico/2026/" target="_blank" class="btn-official">
+                Ver Documento Oficial Completo (PDF/Site) <i data-lucide="external-link" width="18"></i>
+            </a>
+
+            <button onclick="window.location.href='index.html'" class="btn-back">← Voltar ao Menu</button>
+
+            <div class="bimestre-block">
+                <div class="bimestre-header">
+                    <i data-lucide="calendar-days" width="22"></i>
+                    Janeiro 2026
+                </div>
+                <div class="timeline">
+                    <div class="event-item">
+                        <span class="event-date">01 de Janeiro</span>
+                        <span class="event-desc">Feriado - Confraternização Universal (Ano Novo).</span>
+                    </div>
+                    <div class="event-item admin">
+                        <span class="event-date">06 de Janeiro</span>
+                        <span class="event-desc">Divulgação dos resultados de transferência de polo (solicitadas em 2025).</span>
+                    </div>
+                    <div class="event-item admin">
+                        <span class="event-date">08 a 14 de Janeiro</span>
+                        <span class="event-desc">Solicitação de transferência entre cursos do eixo de computação (ingressantes 2024/2).</span>
+                    </div>
+                    <div class="event-item important">
+                        <span class="event-date">08 a 14 de Janeiro</span>
+                        <span class="event-desc">📝 <strong>Renovação de Matrícula</strong>, Trancamento e Matrícula em DPs.</span>
+                    </div>
+                    <div class="event-item important">
+                        <span class="event-date">13 a 17 de Janeiro</span>
+                        <span class="event-desc">👥 <strong>Escolha dos Grupos</strong> de PI (Projeto Integrador) e TCC.</span>
+                    </div>
+                    <div class="event-item important">
+                        <span class="event-date">26 de Janeiro</span>
+                        <span class="event-desc">🚀 <strong>Início das Aulas</strong> (1º Semestre / 1º Bimestre).</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bimestre-block">
+                <div class="bimestre-header">
+                    <i data-lucide="sun" width="22"></i>
+                    Fevereiro 2026
+                </div>
+                <div class="timeline">
+                    <div class="event-item admin">
+                        <span class="event-date">11 de Fevereiro</span>
+                        <span class="event-desc">🎓 Colação de grau regular (Formandos 2025/2).</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bimestre-block">
+                <div class="bimestre-header">
+                    <i data-lucide="book-open" width="22"></i>
+                    Março e Abril (1º Bimestre)
+                </div>
+                <div class="timeline">
+                    <div class="event-item admin">
+                        <span class="event-date">11 de Março</span>
+                        <span class="event-desc">🎓 Solenidade de Formatura.</span>
+                    </div>
+                    <div class="event-item important">
+                        <span class="event-date">16 a 27 de Março</span>
+                        <span class="event-desc">📝 <strong>Provas Regulares</strong> do 1º Bimestre (Presenciais).</span>
+                    </div>
+                    <div class="event-item admin">
+                        <span class="event-date">30 de Março</span>
+                        <span class="event-desc">📄 Início da solicitação de Aproveitamento de Estudos.</span>
+                    </div>
+                    <div class="event-item important">
+                        <span class="event-date">30 de Março</span>
+                        <span class="event-desc">🔄 <strong>Início das Aulas do 2º Bimestre.</strong></span>
+                    </div>
+                    <div class="event-item">
+                        <span class="event-date">13 a 17 de Abril</span>
+                        <span class="event-desc">⚠️ Semana de <strong>Exames</strong> do 1º Bimestre.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bimestre-block">
+                <div class="bimestre-header">
+                    <i data-lucide="flag" width="22"></i>
+                    Maio e Junho (2º Bimestre)
+                </div>
+                <div class="timeline">
+                    <div class="event-item important">
+                        <span class="event-date">11 a 24 de Maio</span>
+                        <span class="event-desc">📤 <strong>Entrega Final</strong> de PI e TCC.</span>
+                    </div>
+                    <div class="event-item important">
+                        <span class="event-date">18 a 29 de Maio</span>
+                        <span class="event-desc">📝 <strong>Provas Regulares</strong> do 2º Bimestre.</span>
+                    </div>
+                    <div class="event-item">
+                        <span class="event-date">29 de Maio</span>
+                        <span class="event-desc">🏁 Fim das atividades letivas do 1º Semestre.</span>
+                    </div>
+                    <div class="event-item important">
+                        <span class="event-date">22 a 26 de Junho</span>
+                        <span class="event-desc">⚠️ Semana de <strong>Exames</strong> do 2º Bimestre.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    lucide.createIcons();
+    </script>
+
+</body>
+</html>
+
+
+
+

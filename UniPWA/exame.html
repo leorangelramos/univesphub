@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Cálculo de Exame - Univesp | Recuperação</title>
+    <meta name="description" content="Calculadora de nota de Exame Univesp. Descubra quanto precisa tirar para passar na recuperação.">
+    <meta name="keywords" content="Exame Univesp, Recuperação, Nota Final, Cálculo Exame, Média Pós Exame">
+    <meta name="author" content="Estudante Univesp">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://univespcalculadora.netlify.app/exame.html">
+
+    <link rel="icon" type="image/webp" href="Univesplogo.webp">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#b71c1c">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Calculadora de Exame - Univesp">
+    <meta property="og:description" content="Descubra se você passou ou quanto precisa tirar no exame.">
+    <meta property="og:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script src="lucide.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Estilos específicos para Exame */
+
+        /* Card da Fórmula */
+        .formula-card {
+            background-color: #fff9c4; /* Amarelo clarinho */
+            color: #fbc02d;
+            border: 1px solid #fff176;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            color: #f57f17;
+        }
+
+        .math-expr {
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: block;
+            margin-top: 5px;
+            color: #333;
+        }
+
+        /* Botão de Ajuda */
+        .btn-help-link {
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        /* CORREÇÃO: Estilo do botão Limpar */
+        .btn-clear {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cfd8dc;
+            background-color: white;
+            color: #546e7a;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-clear:hover { background-color: #eceff1; border-color: #b0bec5; }
+        .btn-clear:active { transform: scale(0.98); }
+
+        /* Área de Erro */
+        #msg-erro {
+            display: none;
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Resultado */
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            line-height: 1.5;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calculadora Exame Univesp",
+      "description": "Ferramenta para cálculo da nota final pós-exame.",
+      "author": { "@type": "Person", "name": "Estudante Univesp" }
+    }
+    </script>
+
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+          appId: "c322be8d-cbcd-40a0-b928-5b3fff29e3ed",
+          safari_web_id: "web.onesignal.auto.xxxxx",
+          notifyButton: {
+            enable: true,
+            size: 'medium',
+            theme: 'default',
+            position: 'bottom-right',
+            showCredit: false,
+            text: {
+                'tip.state.unsubscribed': 'Receber lembretes de prazos',
+                'tip.state.subscribed': 'Você está inscrito nos lembretes',
+                'tip.state.blocked': 'Você bloqueou as notificações',
+                'message.action.subscribed': 'Obrigado por se inscrever!',
+                'message.action.resubscribed': 'Você está inscrito novamente.',
+                'message.action.unsubscribed': 'Você não receberá mais lembretes.',
+                'dialog.main.title': 'Gerenciar Notificações',
+                'dialog.main.button.subscribe': 'INSCREVER',
+                'dialog.main.button.unsubscribe': 'SAIR',
+                'dialog.blocked.title': 'Desbloquear Notificações',
+                'dialog.blocked.message': 'Siga as instruções para permitir as notificações.'
+            }
+          },
+          allowLocalhostAsSecureOrigin: true,
+        });
+      });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JT80KW5HKK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JT80KW5HKK');
+
+      window.addEventListener('appinstalled', () => {
+        gtag('event', 'pwa_install', { 
+            'event_category': 'App', 
+            'event_label': 'Instalacao_Sucesso',
+            'value': 1
+        });
+      });
+    </script>
+
+
+
+</head>
+<body>
+
+    <header>
+        <h1>Exame Final 📝</h1>
+        <p>Cálculo de Recuperação</p>
+    </header>
+
+    <div class="container">
+        <div class="calc-container">
+
+            <div class="formula-card">
+                <i data-lucide="sigma" width="20" style="vertical-align: middle;"></i> Fórmula Oficial:
+                <span class="math-expr">(Média Regular + Nota Exame) ÷ 2</span>
+            </div>
+
+            <div id="msg-erro"></div>
+
+            <div class="input-group">
+                <label>Média Regular (Anterior):</label>
+                <input type="text" id="mediaAnterior" placeholder="Ex: 3.5" inputmode="decimal">
+            </div>
+
+            <div class="input-group">
+                <label>Nota do Exame:</label>
+                <input type="text" id="notaExame" placeholder="Ex: 6.5" inputmode="decimal">
+            </div>
+
+            <button onclick="calcularExame()" class="btn-calc">Calcular Resultado</button>
+            <button onclick="simularNecessario()" class="btn-simular">Quanto preciso tirar?</button>
+            
+            <button onclick="limparExame()" class="btn-clear">
+                <i data-lucide="trash-2" width="18"></i> Limpar Tudo
+            </button>
+
+            <div id="resultado"></div>
+
+            <button onclick="window.location.href='index.html'" class="btn-back">← Voltar ao Menu</button>
+        </div>
+    </div>
+
+    <script>
+
+        lucide.createIcons();
+
+        // 1. Carregar média salva automaticamente
+        window.onload = function() {
+            let mediaSalva = localStorage.getItem('mediaUnivesp');
+            if (mediaSalva) {
+                document.getElementById('mediaAnterior').value = parseFloat(mediaSalva).toFixed(2);
+                // Já sugere a simulação
+                simularNecessario();
+            }
+        }
+
+        function mostrarErro(msg) {
+            const box = document.getElementById('msg-erro');
+            box.innerText = msg;
+            box.style.display = 'block';
+            document.getElementById('resultado').style.display = 'none';
+        }
+
+        function esconderErro() {
+            document.getElementById('msg-erro').style.display = 'none';
+        }
+
+        function lerNota(id) {
+            let val = document.getElementById(id).value;
+            if (!val) return NaN;
+            return parseFloat(val.replace(',', '.'));
+        }
+
+        function calcularExame() {
+            esconderErro();
+            let mediaAnt = lerNota('mediaAnterior');
+            let notaExame = lerNota('notaExame');
+
+            if (isNaN(mediaAnt) || isNaN(notaExame)) {
+                mostrarErro("Preencha a Média Regular e a Nota do Exame.");
+                return;
+            }
+
+            if (mediaAnt > 10 || notaExame > 10 || mediaAnt < 0 || notaExame < 0) {
+                mostrarErro("As notas devem ser entre 0 e 10.");
+                return;
+            }
+
+            let mediaFinal = (mediaAnt + notaExame) / 2;
+            let res = document.getElementById('resultado');
+            
+            res.style.display = 'block';
+            
+            // Arredondamento
+            mediaFinal = Math.round(mediaFinal * 100) / 100;
+
+            if (mediaFinal >= 5) {
+                res.className = 'aprovado';
+                res.innerHTML = `Nova Média Final: <strong>${mediaFinal.toFixed(2)}</strong><br>APROVADO! 🎉`;
+                // Limpa o storage pois passou
+                localStorage.removeItem('mediaUnivesp');
+            } else {
+                res.className = 'reprovado';
+                res.innerHTML = `Nova Média Final: <strong>${mediaFinal.toFixed(2)}</strong><br>REPROVADO (DP). 😢`;
+            }
+        }
+
+        function simularNecessario() {
+            esconderErro();
+            let mediaAnt = lerNota('mediaAnterior');
+
+            if (isNaN(mediaAnt)) {
+                mostrarErro("Preencha a Média Regular primeiro.");
+                return;
+            }
+
+            // Fórmula inversa: (MediaAnt + X) / 2 = 5  =>  MediaAnt + X = 10  =>  X = 10 - MediaAnt
+            let precisa = 10 - mediaAnt;
+            let res = document.getElementById('resultado');
+            
+            res.style.display = 'block';
+
+            if (precisa <= 0) {
+                res.className = 'aprovado';
+                res.innerHTML = "Você já tem nota suficiente para passar (Média > 5).";
+            } else if (precisa > 10) {
+                res.className = 'reprovado';
+                res.innerHTML = `Impossível passar. Você precisaria de <strong>${precisa.toFixed(2)}</strong> no exame (Máx é 10).`;
+            } else {
+                res.className = '';
+                res.style.background = "#fff3e0";
+                res.style.border = "1px solid #ffe0b2";
+                res.style.color = "#e65100";
+                res.innerHTML = `Para ficar com média 5.0:<br>Você precisa tirar <strong>${precisa.toFixed(2)}</strong> no exame.`;
+            }
+        }
+
+        function limparExame() {
+            document.getElementById('mediaAnterior').value = '';
+            document.getElementById('notaExame').value = '';
+            esconderErro();
+            document.getElementById('resultado').style.display = 'none';
+            document.getElementById('mediaAnterior').focus();
+        }
+    </script>
+</body>
+</html>

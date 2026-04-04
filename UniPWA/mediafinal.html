@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Média Regular - Univesp | Calculadora</title>
+    <meta name="description" content="Calcule sua média regular da Univesp (40% AVA + 60% Prova).">
+    
+    <link rel="icon" type="image/webp" href="Univesplogo.webp">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#b71c1c">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script src="lucide.js"></script>
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Calculadora Média Univesp",
+  "description": "Calcule sua média final oficial considerando AVA e Prova.",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "All",
+  "author": { "@type": "Person", "name": "Estudante Univesp" }
+}
+    </script>  
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Estilos específicos para esta página (Ajuda Inline e Erros) */
+        
+        /* Botão de limpar */
+        .btn-clear {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cfd8dc;
+            background-color: white;
+            color: #546e7a;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-clear:hover { background-color: #eceff1; border-color: #b0bec5; }
+        .btn-clear:active { transform: scale(0.98); }
+
+        /* Área de Ajuda Inline (Abre e fecha na tela) */
+        #help-inline {
+            display: none; /* Escondido por padrão */
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            margin-top: -10px;
+            text-align: left;
+            font-size: 0.9rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        #help-inline p {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+            margin-top: 10px;
+        }
+        
+        #help-inline p:first-child { margin-top: 0; }
+
+        .tutorial-img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        /* Mensagem de Erro (Substitui o alert) */
+        #msg-erro {
+            display: none;
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+          appId: "c322be8d-cbcd-40a0-b928-5b3fff29e3ed",
+          safari_web_id: "web.onesignal.auto.xxxxx",
+          notifyButton: {
+            enable: true,
+            size: 'medium',
+            theme: 'default',
+            position: 'bottom-right',
+            showCredit: false,
+            text: {
+                'tip.state.unsubscribed': 'Receber lembretes de prazos',
+                'tip.state.subscribed': 'Você está inscrito nos lembretes',
+                'tip.state.blocked': 'Você bloqueou as notificações',
+                'message.action.subscribed': 'Obrigado por se inscrever!',
+                'message.action.resubscribed': 'Você está inscrito novamente.',
+                'message.action.unsubscribed': 'Você não receberá mais lembretes.',
+                'dialog.main.title': 'Gerenciar Notificações',
+                'dialog.main.button.subscribe': 'INSCREVER',
+                'dialog.main.button.unsubscribe': 'SAIR',
+                'dialog.blocked.title': 'Desbloquear Notificações',
+                'dialog.blocked.message': 'Siga as instruções para permitir as notificações.'
+            }
+          },
+          allowLocalhostAsSecureOrigin: true,
+        });
+      });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JT80KW5HKK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JT80KW5HKK');
+
+      window.addEventListener('appinstalled', () => {
+        gtag('event', 'pwa_install', { 
+            'event_category': 'App', 
+            'event_label': 'Instalacao_Sucesso',
+            'value': 1
+        });
+      });
+    </script>
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Guia de Estágio Supervisionado Univesp",
+  "description": "Regras de carga horária para Licenciaturas, Engenharia e Computação.",
+  "author": { "@type": "Person", "name": "Estudante Univesp" }
+}
+    </script>
+
+    
+    
+</head>
+<body>
+
+    <header>
+        <h1>Calculadora 🧮</h1>
+        <p>Média Regular (40% AVA + 60% Prova)</p>
+    </header>
+
+    <div class="container">
+        <div class="calc-container">
+            
+            <button onclick="toggleHelp()" class="btn-help-link" id="btn-toggle-help">
+                <i data-lucide="help-circle" width="16"></i>
+                Onde achar minhas notas? <span id="seta-help">▼</span>
+            </button>
+
+            <div id="help-inline">
+                <p>1. Nota das Atividades (AVA):</p>
+                <span>Fica no canto direito da disciplina no Blackboard.</span>
+                <img src="avanota.webp" alt="Exemplo nota AVA" class="tutorial-img">
+                
+                <p>2. Nota da Prova (SEI):</p>
+                <span>Acesse o Histórico Escolar no sistema SEI.</span>
+                <img src="seinota.png" alt="Exemplo nota SEI" class="tutorial-img">
+                
+                <div style="text-align: right; margin-top: 10px;">
+                    <button onclick="toggleHelp()" style="background:none; border:none; color:#666; cursor:pointer; font-size: 0.8rem; text-decoration: underline;">Fechar Ajuda</button>
+                </div>
+            </div>
+
+            <div id="msg-erro"></div>
+
+            <div class="input-group">
+                <label>Nota das Atividades (AVA):</label>
+                <input type="text" id="ativ" placeholder="Ex: 9.5" inputmode="decimal">
+            </div>
+
+            <div class="input-group">
+                <label>Nota da Prova (SEI):</label>
+                <input type="text" id="prova" placeholder="Ex: 6.0" inputmode="decimal">
+            </div>
+
+            <button onclick="calcularMedia()" class="btn-calc">Calcular Média</button>
+            <button onclick="simularNota()" class="btn-simular">Quanto preciso na Prova?</button>
+            
+            <button onclick="limparTudo()" class="btn-clear">
+                <i data-lucide="trash-2" width="18"></i> Limpar Tudo
+            </button>
+
+            <div id="resultado"></div>
+
+            <button onclick="window.location.href='index.html'" class="btn-back">← Voltar ao Menu</button>
+        </div>
+    </div>
+
+    <script>
+
+        lucide.createIcons();
+
+        // Alterna a visibilidade da ajuda (Abre/Fecha)
+        function toggleHelp() {
+            const helpDiv = document.getElementById('help-inline');
+            const seta = document.getElementById('seta-help');
+            
+            if (helpDiv.style.display === 'block') {
+                helpDiv.style.display = 'none';
+                seta.innerText = '▼';
+            } else {
+                helpDiv.style.display = 'block';
+                seta.innerText = '▲';
+            }
+        }
+
+        // Função para mostrar erros na tela em vez de alert
+        function mostrarErro(mensagem) {
+            const box = document.getElementById('msg-erro');
+            box.innerText = mensagem;
+            box.style.display = 'block';
+            // Esconde o resultado se tiver erro
+            document.getElementById('resultado').style.display = 'none';
+        }
+
+        function esconderErro() {
+            document.getElementById('msg-erro').style.display = 'none';
+        }
+
+        function lerNota(id) {
+            let valor = document.getElementById(id).value;
+            if (!valor) return NaN;
+            return parseFloat(valor.replace(',', '.'));
+        }
+
+        function limparTudo() {
+            document.getElementById('ativ').value = '';
+            document.getElementById('prova').value = '';
+            
+            const res = document.getElementById('resultado');
+            res.style.display = 'none';
+            res.innerHTML = '';
+            res.className = '';
+            
+            esconderErro(); // Limpa erro também
+            document.getElementById('ativ').focus();
+        }
+
+        function calcularMedia() {
+            esconderErro();
+            let ativ = lerNota('ativ');
+            let prova = lerNota('prova');
+            
+            if (isNaN(ativ) || isNaN(prova)) { 
+                mostrarErro("Por favor, preencha as duas notas (AVA e Prova)!"); 
+                return; 
+            }
+            if (ativ > 10 || prova > 10) { 
+                mostrarErro("As notas não podem ser maiores que 10."); 
+                return; 
+            }
+            if (ativ < 0 || prova < 0) { 
+                mostrarErro("As notas não podem ser negativas."); 
+                return; 
+            }
+
+            let media = (ativ * 0.4) + (prova * 0.6);
+            let res = document.getElementById('resultado');
+            
+            res.style.display = 'block';
+            
+            // Arredondamento para 2 casas
+            media = Math.round(media * 100) / 100;
+
+            if (media >= 5) {
+                res.className = 'aprovado';
+                res.innerHTML = `Média Final: <strong>${media.toFixed(2)}</strong><br>APROVADO! 🎉`;
+                localStorage.removeItem('mediaUnivesp');
+            } else {
+                res.className = 'reprovado';
+                res.innerHTML = `Média: <strong>${media.toFixed(2)}</strong><br>Necessário Exame.`;
+                localStorage.setItem('mediaUnivesp', media);
+            }
+        }
+
+        function simularNota() {
+            esconderErro();
+            let ativ = lerNota('ativ');
+            
+            if (isNaN(ativ)) { 
+                mostrarErro("Preencha a nota do AVA primeiro para simular!"); 
+                return; 
+            }
+            if (ativ > 10 || ativ < 0) { 
+                mostrarErro("Nota do AVA inválida (0 a 10)."); 
+                return; 
+            }
+
+            let pontosJaTenho = ativ * 0.4;
+            let falta = 5.0 - pontosJaTenho;
+            let precisaNaProva = falta / 0.6;
+
+            let res = document.getElementById('resultado');
+            res.style.display = 'block';
+            
+            if (precisaNaProva <= 0) {
+                res.className = 'aprovado';
+                res.innerHTML = "Matematicamente Aprovado! Mesmo com 0 na prova.";
+            } else if (precisaNaProva > 10) {
+                res.className = 'reprovado';
+                res.innerHTML = `Impossível atingir média 5.0 apenas com a prova.<br>Você precisaria de <strong>${precisaNaProva.toFixed(2)}</strong>.<br>Prepare-se para o Exame.`;
+            } else {
+                res.className = '';
+                // Estilo customizado inline para alerta amarelo
+                res.style.background = "#fff3e0";
+                res.style.border = "1px solid #ffe0b2";
+                res.style.color = "#e65100";
+                res.innerHTML = `Para passar direto (Média 5.0):<br>Você precisa tirar <strong>${precisaNaProva.toFixed(2)}</strong> na prova.`;
+            }
+        }
+    </script>
+</body>
+</html>
