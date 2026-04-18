@@ -36,7 +36,7 @@
     <meta name="twitter:description" content="Veja quanto falta para se formar. Acompanhe sua matriz curricular dos cursos da Univesp.">
     <meta name="twitter:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="lucide.js"></script>
     <link rel="stylesheet" href="style.css">
 
@@ -63,74 +63,80 @@
         .status-pending { background: #eee; color: #555; }
         .status-ok { background: #d4edda; color: #155724; }
         
-        .setup-screen { text-align: center; padding: 30px 20px; }
+        /* Modificações de design focado no Clean e Vermelho Univesp */
+        .setup-screen { 
+            text-align: center; 
+            padding: 40px 20px; 
+            background: #ffffff;
+            border: 1px solid #eaeaea;
+            border-top: 4px solid #b71c1c; 
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            max-width: 400px;
+            margin: 20px auto;
+        }
         .app-screen { display: none; }
         
-        /* Nova interface de seleção de curso */
         .custom-select-wrapper {
             position: relative;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         .custom-select-wrapper select {
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
             width: 100%;
-            padding: 16px 45px 16px 20px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-main);
-            background-color: #f9fafb;
+            padding: 12px 40px 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #333;
+            background-color: #ffffff;
             cursor: pointer;
             transition: all 0.2s ease-in-out;
             font-family: 'Inter', sans-serif;
         }
         .custom-select-wrapper select:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(183, 28, 28, 0.1);
-            background-color: #fff;
+            border-color: #b71c1c;
+            box-shadow: 0 0 0 3px rgba(183, 28, 28, 0.1);
         }
         .custom-select-icon {
             position: absolute;
-            right: 18px;
+            right: 14px;
             top: 50%;
             transform: translateY(-50%);
             pointer-events: none;
-            color: #9ca3af;
+            color: #b71c1c;
             transition: color 0.2s;
         }
         .custom-select-wrapper select:focus + .custom-select-icon {
-            color: var(--primary);
+            color: #b71c1c;
         }
         
         .btn-start {
             width: 100%;
-            padding: 16px;
-            background: var(--primary);
+            padding: 12px;
+            background: #b71c1c;
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 10px rgba(183, 28, 28, 0.25);
+            gap: 8px;
             font-family: 'Inter', sans-serif;
         }
         .btn-start:hover {
             background: #900000;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(183, 28, 28, 0.3);
         }
         .btn-start:active {
-            transform: translateY(0);
+            transform: translateY(1px);
         }
     </style>
 
@@ -226,9 +232,9 @@
 <div class="container">
     
     <div id="setup-screen" class="calc-container setup-screen">
-        <i data-lucide="graduation-cap" style="width: 56px; height: 56px; color: var(--primary); margin-bottom: 20px;"></i>
-        <h2 style="color: var(--text-main); font-size: 1.5rem; margin-bottom: 10px;">Bem-vindo!</h2>
-        <p style="margin-bottom: 25px; color: var(--text-muted);">Para começar a acompanhar sua evolução, selecione o seu curso na Univesp:</p>
+        <i data-lucide="graduation-cap" style="width: 40px; height: 40px; color: #b71c1c; margin-bottom: 15px;"></i>
+        <h2 style="color: #b71c1c; font-size: 1.2rem; margin-bottom: 8px;">Bem-vindo!</h2>
+        <p style="margin-bottom: 20px; font-size: 0.85rem; color: #666;">Para começar a acompanhar sua evolução, selecione o seu curso na Univesp:</p>
         
         <div class="custom-select-wrapper">
             <select id="course-select" aria-label="Selecione o seu curso de graduação">
@@ -250,11 +256,11 @@
                     <option value="letras">Licenciatura em Letras</option>
                 </optgroup>
             </select>
-            <i data-lucide="chevron-down" class="custom-select-icon" width="20"></i>
+            <i data-lucide="chevron-down" class="custom-select-icon" width="18"></i>
         </div>
         
         <button class="btn-start" onclick="initializeCourse()" aria-label="Salvar curso e carregar matriz curricular">
-            <i data-lucide="play-circle" width="22"></i> Salvar e Começar
+            <i data-lucide="play-circle" width="18"></i> Salvar e Começar
         </button>
     </div>
 

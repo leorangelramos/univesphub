@@ -1,6 +1,6 @@
 {
-  "name": "Calculadora",
-  "short_name": "Minhas Notas",
+  "name": "UniHub",
+  "short_name": "UniHub",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f4f4f4",
@@ -9,12 +9,12 @@
   "icons": [
     {
       "src": "Univesplogo.webp",
-      "sizes": "292x292",
+      "sizes": "192x192",
       "type": "image/webp"
     },
     {
       "src": "Univesplogo.webp",
-      "sizes": "712x712",
+      "sizes": "512x512",
       "type": "image/webp"
     }
   ]
