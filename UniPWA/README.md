@@ -2,9 +2,10 @@
 
 ![Status](https://img.shields.io/badge/Status-Online-brightgreen?style=for-the-badge)
 ![PWA](https://img.shields.io/badge/PWA-V2.0-blue?style=for-the-badge)
+![SEO](https://img.shields.io/badge/SEO-Optimized-orange?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge)
 
-> **O Canivete Suíço do Aluno Univesp:** Uma suíte completa de ferramentas para calcular médias, gerenciar a grade curricular, controlar horas de estágio e consultar o calendário acadêmico oficial de 2026.
+> **O Canivete Suíço do Aluno Univesp:** Uma suíte completa de ferramentas para calcular médias, gerenciar a grade curricular atualizada, controlar horas de estágio e consultar o calendário acadêmico oficial de 2026/2027.
 
 ### 🔗 [Acesse online: https://univespcalculadora.netlify.app/](https://univespcalculadora.netlify.app/)
 
@@ -15,107 +16,92 @@
 > **Título do Projeto:** Central do Estudante - Web App (PWA)
 
 **Descrição:**
-"Desenvolvi uma solução Full-Stack (Frontend + Serverless) para resolver a fragmentação de informações acadêmicas, impactando potencialmente uma comunidade de 50.000 usuários."
+Solução Full-Stack (Frontend + Serverless) desenvolvida para resolver a fragmentação de informações acadêmicas, centralizando o acesso a ferramentas essenciais para uma comunidade de mais de 50.000 usuários.
 
-### 🎯 O Desafio
+### 🎯 O Desafio Tecnológico
 
-Centralizar o acesso a 4 sistemas institucionais diferentes e calculadoras acadêmicas em uma interface única e mobile-first, resolvendo um problema logístico que consumia milhares de horas combinadas dos alunos.
+Centralizar o acesso a sistemas institucionais distribuídos e ferramentas de cálculo em uma interface única, leve e mobile-first. O objetivo arquitetural foi mitigar um gargalo logístico de navegação que consumia milhares de horas combinadas dos usuários semanalmente.
 
-### 🛠️ A Solução
+### 🛠️ A Solução Integrada
 
-- **Tech Stack:** HTML5, CSS3, Vanilla JS (foco total em performance e carregamento instantâneo).
-- **Arquitetura:** PWA (Progressive Web App) com Service Workers para funcionamento 100% Offline.
-- **Engajamento:** Integração com OneSignal para Push Notifications de prazos críticos.
-- **Dados & Privacidade:** Persistência local via LocalStorage (sem backend centralizado, garantindo custo zero de servidor e privacidade total/LGPD).
-- **Growth:** Otimização técnica de SEO (JSON-LD) que posicionou o app na 1ª página do Google organicamente em menos de uma semana.
-
-### 📈 Resultado
-
-Uma ferramenta leve, acessível e escalável que entregou valor imediato à comunidade acadêmica com custo de infraestrutura zero.
+- **Tech Stack:** HTML5 Semântico, CSS3 Moderno, Vanilla JS (foco total em performance, DOM DOM manipulation eficiente e carregamento instantâneo).
+- **Arquitetura:** PWA (Progressive Web App) com Service Workers (`sw.js`) garantindo funcionamento 100% Offline.
+- **Engajamento:** Integração assíncrona com SDK do **OneSignal** para Push Notifications de prazos críticos.
+- **Telemetria:** Rastreamento de eventos e conversões via **Google Analytics 4 (GA4)**.
+- **Dados & Privacidade:** Persistência de estado via API `localStorage` (sem backend centralizado, garantindo custo zero de servidor e conformidade total com LGPD).
+- **Growth & SEO:** Estruturação avançada de SEO on-page, Open Graph, Twitter Cards e injeção de JSON-LD Schema, garantindo alta indexação orgânica nos motores de busca.
 
 ---
 
-### 🧠 A Motivação
+## 🚀 Funcionalidades da Central do Aluno Univesp
 
-"Eu percebi que os 50 mil alunos da minha universidade perdiam tempo todo dia entrando em vários sites diferentes só para achar uma nota ou um prazo. Se a instituição fosse resolver isso via licitação pública, o mercado estima que custaria entre **R$ 200 mil e R$ 2 milhões** e levaria até 2 anos para ficar pronto.
+O código opera como um **PWA (Progressive Web App)** completo. Pode ser instalado nativamente nos sistemas operacionais (Android/iOS/Desktop) e executa lógicas matemáticas offline.
 
-Eu decidi resolver isso em um final de semana. Criei um PWA (Web App) que roda direto no celular do aluno, não gasta servidor (custo zero) e funciona sem internet. O resultado foi uma solução que economiza milhares de horas de navegação da comunidade por semana, entregue de forma ágil e eficiente."
+### 📊 Gestão Acadêmica e Curricular
 
----
+- **Minha Grade Interativa (Nova Interface):** Seleção aprimorada de curso e acompanhamento visual de progresso.
+  - _Cursos Suportados (10 Matrizes):_ **Bacharelado em Inteligência Artificial (NOVO)**, Ciência de Dados, BTI, Eng. de Computação, Eng. de Produção, Administração, Processos Gerenciais, Pedagogia, Matemática e Letras.
+  - _Lógicas Aplicadas:_ Cálculo automático de % de conclusão em tempo real, contagem de PIs restantes e validação de status de aprovação.
+- **Banco de Horas:** Controle dinâmico de horas de Estágio Obrigatório e Atividades Complementares (AACC).
 
-## 🚀 Funcionalidades
+### 🧮 Calculadoras Preditivas
 
-O aplicativo é um **PWA (Progressive Web App)** completo. Ele pode ser instalado no celular e funciona **offline**, salvando os dados do aluno localmente no dispositivo.
+- **Média Regular:** Algoritmo oficial da instituição (40% AVA + 60% Prova).
+- **Simulador de Prova:** Engenharia reversa da fórmula para descobrir a nota exata necessária para aprovação direta.
+- **Cálculo de Exame:** Verificação da nota necessária na prova de recuperação (Média 5.0).
+- **Pesos Semanais:** Calculadora de média ponderada para atividades do AVA (Pesos dinâmicos: 8%, 12% e 17%).
+- **Projeto Integrador:** Estimativa de nota composta (Parcial + Final).
 
-### 📊 Gestão Acadêmica
+### 📅 Informações, Dashboards & Guias
 
-- **Minha Grade Interativa:** Selecione seu curso e acompanhe seu progresso visualmente.
-  - _Cursos Suportados:_ Ciência de Dados, BTI, Eng. de Computação, Eng. de Produção, Administração, Processos Gerenciais, Pedagogia, Matemática e Letras.
-  - _Funcionalidades:_ Cálculo automático de % de conclusão, contagem de PIs restantes e status de aprovação.
-- **Banco de Horas:** Controle visual de horas de Estágio Obrigatório e Atividades Complementares (AACC).
-- **Persistência de Dados:** Tudo é salvo no `localStorage` do navegador. Seus dados não saem do seu dispositivo.
-
-### 🧮 Calculadoras
-
-- **Média Regular:** Regra oficial (40% AVA + 60% Prova).
-- **Simulador de Prova:** Descubra exatamente quanto precisa tirar na prova para passar.
-- **Cálculo de Exame:** Verifique a nota necessária na recuperação (Média 5.0).
-- **Pesos Semanais:** Calculadora de média ponderada para atividades do AVA (Semanas com pesos 8%, 12% e 17%) .
-- **Projeto Integrador:** Estimativa de nota (Parcial + Final).
-
-### 📅 Informações & Guias (Atualizados!)
-
-- **Calendário 2026:** Cronograma completo com datas de provas, matrículas e entrega de PI.
-- **Guias Rápidos:** Resumos sobre regras de TCC, Estágio Obrigatório e Projeto Integrador divididos por eixos (Computação, Licenciatura e Negócios).
-- **ABNT Fácil:** Guia rápido de formatação (margens, fonte, espaçamento) para PI e TCC.
-- **Dicas e Benefícios:** Informações sobre Office 365, Carteirinha de Estudante e Biblioteca Virtual.
+- **Dashboard de Prazos Críticos:** Cronômetros em tempo real para fechamentos de AVA, Provas e envio de TCC/PI.
+- **Calendário 2026/2027:** Cronograma estruturado com eventos mapeados via JSON-LD `Schedule`.
+- **Guias Rápidos:** Documentações e regras de negócio extraídas do manual oficial sobre TCC, Estágio Obrigatório e Projeto Integrador.
+- **ABNT Fácil:** Guia paramétrico de formatação.
 
 ---
 
-## 🛠️ Tecnologias
+## 🛠️ Tecnologias e Dependências
 
-Projeto focado em performance (**Lighthouse 100%**), acessibilidade e SEO.
+Projeto rigorosamente otimizado para **Lighthouse 100%** (Performance, Acessibilidade, Melhores Práticas e SEO).
 
-- **Frontend:** `HTML5 Semântico`, `CSS3` (Grid/Flexbox, Animações), `JavaScript` (ES6+).
-- **Armazenamento Local:** `localStorage API` para salvar notas, curso selecionado e horas de estágio.
-- **PWA:** `manifest.json` e `Service Worker` para cacheamento de assets e funcionamento offline.
-- **UI/UX:** Design responsivo "Mobile-First" e ícones [Lucide](https://lucide.dev/).
-- **Integrações:** OneSignal (Push Notifications) e Google Analytics 4 (GA4).
-- **SEO:** Meta tags completas, Open Graph, Twitter Cards e JSON-LD (Schema.org).
-
----
-
-## 📂 Estrutura de Arquivos
-
-| Arquivo                   | Descrição                                                    |
-| :------------------------ | :----------------------------------------------------------- |
-| `index.html`              | Dashboard principal com atalhos para AVA, SEI e Ferramentas. |
-| `progresso.html`          | Gerenciador de grade curricular com lógica para 9 cursos.    |
-| `calendario.html`         | Cronograma 2026 com eventos e JSON-LD Schema.                |
-| `mediafinal.html`         | Calculadora de média regular.                                |
-| `exame.html`              | Calculadora de recuperação.                                  |
-| `porcentagemsemanas.html` | Calculadora de pesos semanais do AVA.                        |
-| `projetointegrador.html`  | Guia e calculadora simples de PI.                            |
-| `horas.html`              | Tracker de horas de estágio/complementares.                  |
-| `tcc.html`                | Guia sobre obrigatoriedade de TCC.                           |
-| `estagio.html`            | Guia informativo sobre regras de estágio.                    |
-| `resumo.html`             | Visão geral acadêmica de todos os cursos.                    |
-| `abnt.html`               | Guia rápido de formatação ABNT.                              |
-| `dicas.html`              | Dicas e benefícios (Office, Carteirinha, etc.).              |
-| `metas.html`              | Prazos para entregas de trabalhos.                           |
+- **Markup & Estilo:** `HTML5`, `CSS3` (CSS Variables, Flexbox/Grid, Keyframe Animations).
+- **Lógica de Negócio:** `JavaScript (ES6+)` puro, sem frameworks pesados para garantir tempo de execução sub-milissegundo.
+- **Armazenamento:** `localStorage API` (manipulação de JSON para persistência de arrays de notas e metadados).
+- **PWA Ecosystem:** `manifest.json`, `sw.js` (Cache Storage API).
+- **UI/UX:** Design System "Mobile-First", Tipografia Google Fonts (Inter, Poppins), Ícones SVGs via [Lucide](https://lucide.dev/).
+- **Tracking & Push:** `OneSignalSDK.page.js` e `gtag.js` (Google Tag Manager).
 
 ---
 
-## ⚠️ Aviso Legal (Disclaimer)
+## 📂 Estrutura de Diretórios e Arquivos
 
-Este é um projeto **NÃO OFICIAL** e open-source, desenvolvido por alunos para alunos.
-
-1.  **Não possui vínculo** direto com a Universidade Virtual do Estado de São Paulo (Univesp).
-2.  As regras, pesos e calendários baseiam-se nos manuais vigentes (2024/2025/2026), mas podem sofrer alterações pela instituição.
-3.  **Sempre confira** suas notas e prazos oficiais no AVA/Aluno Net.
+| Arquivo                   | Descrição Técnica                                                |
+| :------------------------ | :--------------------------------------------------------------- |
+| `index.html`              | Ponto de entrada (Dashboard principal) e hub de links.           |
+| `progresso.html`          | Engine de grade curricular com DB JSON para 10 matrizes.         |
+| `calendario.html`         | Cronograma interativo otimizado para rich snippets de eventos    |
+| `media-final.html`        | Módulo de cálculo matemático de notas regulares.                 |
+| `exame.html`              | Algoritmo de recuperação escolar.                                |
+| `porcentagemsemanas.html` | Interface e lógica de média ponderada de atividades.             |
+| `prazo-final...html`      | Dashboard com `setInterval` para contagem regressiva.            |
+| `tcc-pi-estagio.html`     | Documentação de diretrizes de conclusão de curso.                |
+| `main.css` / `style.css`  | Folhas de estilo globais e variáveis de tema.                    |
+| `sw.js`                   | Service Worker responsável pelas estratégias de cache offline    |
+| `manifest.json`           | Metadados para instalação e configuração do Progressive Web App. |
 
 ---
 
-**Desenvolvido por Leo Ramos.**
+## ⚠️ Aviso Legal e Repositório
+
+Trata-se de um software **NÃO OFICIAL** e de código aberto.
+
+1.  **Sem vínculo institucional:** A aplicação não possui qualquer integração ou relacionamento oficial com a Universidade Virtual do Estado de São Paulo (Univesp).
+2.  **Base de Dados:** As matrizes curriculares, pesos matemáticos e calendários são extraídos e hardcoded a partir de documentos públicos (2024/2025/2026), sujeitos a alterações da reitoria.
+3.  **Segurança da Informação:** O código não intercepta, não trafega em rede e não coleta dados acadêmicos sensíveis (senhas/RAs). Todo processamento ocorre no `client-side`.
+
+---
+
 <br>
-_Feito com ❤️ para a comunidade Univesp._
+
+_Projeto de Arquitetura Frontend e PWA. Focado em otimização de fluxos e UX acadêmica._

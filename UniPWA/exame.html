@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Cálculo de Exame - Univesp | Recuperação</title>
-    <meta name="description" content="Calculadora de nota de Exame Univesp. Descubra quanto precisa tirar para passar na recuperação.">
-    <meta name="keywords" content="Exame Univesp, Recuperação, Nota Final, Cálculo Exame, Média Pós Exame">
+    <meta name="description" content="Calculadora de nota de Exame Univesp NÃO OFICIAL. Descubra quanto precisa tirar para passar na recuperação e calcule sua média final rapidamente.">
+    <meta name="keywords" content="Exame Univesp, Recuperação, Nota Final, Cálculo Exame, Média Pós Exame, Calculadora Univesp">
     <meta name="author" content="Estudante Univesp">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://univespcalculadora.netlify.app/exame.html">
@@ -16,9 +16,16 @@
     <meta name="theme-color" content="#b71c1c">
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Calculadora de Exame - Univesp">
-    <meta property="og:description" content="Descubra se você passou ou quanto precisa tirar no exame.">
+    <meta property="og:url" content="https://univespcalculadora.netlify.app/exame.html">
+    <meta property="og:title" content="Calculadora de Exame - Univesp | Recuperação">
+    <meta property="og:description" content="Descubra se você passou ou exatamente quanto precisa tirar no exame da Univesp. App não oficial.">
     <meta property="og:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://univespcalculadora.netlify.app/exame.html">
+    <meta property="twitter:title" content="Calculadora de Exame - Univesp | Recuperação">
+    <meta property="twitter:description" content="Descubra se você passou ou exatamente quanto precisa tirar no exame da Univesp. App não oficial.">
+    <meta property="twitter:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
@@ -114,8 +121,16 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Calculadora Exame Univesp",
-      "description": "Ferramenta para cálculo da nota final pós-exame.",
-      "author": { "@type": "Person", "name": "Estudante Univesp" }
+      "url": "https://univespcalculadora.netlify.app/exame.html",
+      "description": "Ferramenta e calculadora web para descobrir a nota necessária no exame e a média final de recuperação para alunos da Univesp.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "author": { "@type": "Person", "name": "Estudante Univesp" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      }
     }
     </script>
 
@@ -167,13 +182,13 @@
       });
     </script>
 
-
-
 </head>
 <body>
 
+    <h1 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Calculadora de Exame Univesp: Cálculo de Recuperação e Média Final</h1>
+
     <header>
-        <h1>Exame Final 📝</h1>
+        <h2 style="margin: 0; font-size: 1.5rem;">Exame Final 📝</h2>
         <p>Cálculo de Recuperação</p>
     </header>
 
@@ -185,28 +200,28 @@
                 <span class="math-expr">(Média Regular + Nota Exame) ÷ 2</span>
             </div>
 
-            <div id="msg-erro"></div>
+            <div id="msg-erro" role="alert"></div>
 
             <div class="input-group">
-                <label>Média Regular (Anterior):</label>
-                <input type="text" id="mediaAnterior" placeholder="Ex: 3.5" inputmode="decimal">
+                <label for="mediaAnterior">Média Regular (Anterior):</label>
+                <input type="text" id="mediaAnterior" placeholder="Ex: 3.5" inputmode="decimal" aria-label="Insira sua média regular anterior ao exame">
             </div>
 
             <div class="input-group">
-                <label>Nota do Exame:</label>
-                <input type="text" id="notaExame" placeholder="Ex: 6.5" inputmode="decimal">
+                <label for="notaExame">Nota do Exame:</label>
+                <input type="text" id="notaExame" placeholder="Ex: 6.5" inputmode="decimal" aria-label="Insira a nota obtida no exame">
             </div>
 
-            <button onclick="calcularExame()" class="btn-calc">Calcular Resultado</button>
-            <button onclick="simularNecessario()" class="btn-simular">Quanto preciso tirar?</button>
+            <button onclick="calcularExame()" class="btn-calc" aria-label="Calcular Média Final após o Exame">Calcular Resultado</button>
+            <button onclick="simularNecessario()" class="btn-simular" aria-label="Simular quanto precisa tirar no exame">Quanto preciso tirar?</button>
             
-            <button onclick="limparExame()" class="btn-clear">
+            <button onclick="limparExame()" class="btn-clear" aria-label="Limpar todos os campos">
                 <i data-lucide="trash-2" width="18"></i> Limpar Tudo
             </button>
 
-            <div id="resultado"></div>
+            <div id="resultado" aria-live="polite"></div>
 
-            <button onclick="window.location.href='index.html'" class="btn-back">← Voltar ao Menu</button>
+            <button onclick="window.location.href='index.html'" class="btn-back" aria-label="Voltar para a página inicial">← Voltar ao Menu</button>
         </div>
     </div>
 

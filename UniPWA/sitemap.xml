@@ -1,55 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   
    <url>
       <loc>https://univespcalculadora.netlify.app/</loc>
-      <lastmod>2025-11-29</lastmod>
-      <changefreq>weekly</changefreq>
+      <lastmod>2026-04-18</lastmod>
+      <changefreq>always</changefreq>
       <priority>1.00</priority>
    </url>
 
    <url>
-      <loc>https://univespcalculadora.netlify.app/progresso.html</loc>
-      <lastmod>2025-11-29</lastmod>
+      <loc>https://univespcalculadora.netlify.app/minha-grade-de-materias-curso-univesp.html</loc>
+      <lastmod>2026-04-18</lastmod>
       <changefreq>weekly</changefreq>
-      <priority>0.90</priority>
-   </url>
-   <url>
-      <loc>https://univespcalculadora.netlify.app/calendario.html</loc>
-      <lastmod>2025-11-29</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.90</priority>
+      <priority>0.95</priority>
    </url>
 
-   <url>
-      <loc>https://univespcalculadora.netlify.app/mediafinal.html</loc>
-      <lastmod>2025-11-29</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.80</priority>
-   </url>
-   <url>
-      <loc>https://univespcalculadora.netlify.app/exame.html</loc>
-      <lastmod>2025-11-29</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.80</priority>
-   </url>
-   <url>
-      <loc>https://univespcalculadora.netlify.app/porcentagemsemanas.html</loc>
-      <lastmod>2025-11-29</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.80</priority>
-   </url>
    <url>
       <loc>https://univespcalculadora.netlify.app/prazo-final-de-entrega-univesp-alarme-atividades.html</loc>
-      <lastmod>2025-11-29</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.80</priority>
+      <lastmod>2026-04-18</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.95</priority>
    </url>
+
    <url>
-      <loc>https://univespcalculadora.netlify.app/tcc-pi-estagio.html</loc>
-      <lastmod>2025-11-29</lastmod>
+      <loc>https://univespcalculadora.netlify.app/calendario.html</loc>
+      <lastmod>2026-04-18</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.90</priority>
+   </url>
+
+   <url>
+      <loc>https://univespcalculadora.netlify.app/media-final.html</loc>
+      <lastmod>2026-04-18</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.85</priority>
+   </url>
+
+   <url>
+      <loc>https://univespcalculadora.netlify.app/exame.html</loc>
+      <lastmod>2026-04-18</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.85</priority>
+   </url>
+
+   <url>
+      <loc>https://univespcalculadora.netlify.app/porcentagemsemanas.html</loc>
+      <lastmod>2026-04-18</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.80</priority>
    </url>
 
+   <url>
+      <loc>https://univespcalculadora.netlify.app/tcc-pi-estagio.html</loc>
+      <lastmod>2026-04-18</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.80</priority>
+   </url>
 
 </urlset>

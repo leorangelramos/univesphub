@@ -10,7 +10,7 @@
     
     <title>Pesos Semanais - Univesp | Calculadora</title>
     <meta name="description" content="Calculadora de média ponderada das atividades semanais da Univesp (Pesos 8%, 12% e 17%). Saiba sua nota exata no AVA.">
-    <meta name="keywords" content="Univesp, Pesos Semanas, Calculadora AVA, Média Ponderada, Semana 1 a 7">
+    <meta name="keywords" content="Univesp, Pesos Semanas, Calculadora AVA, Média Ponderada, Semana 1 a 7, Notas Atividades Univesp">
     <meta name="author" content="Estudante Univesp">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://univespcalculadora.netlify.app/porcentagemsemanas.html">
@@ -20,9 +20,16 @@
     <meta name="theme-color" content="#b71c1c">
 
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://univespcalculadora.netlify.app/porcentagemsemanas.html">
     <meta property="og:title" content="Calculadora de Pesos Semanais - Univesp">
     <meta property="og:description" content="Descubra sua nota real das atividades considerando os pesos difíceis (17%) e fáceis (8%).">
     <meta property="og:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://univespcalculadora.netlify.app/porcentagemsemanas.html">
+    <meta name="twitter:title" content="Calculadora de Pesos Semanais - Univesp">
+    <meta name="twitter:description" content="Descubra sua nota real das atividades considerando os pesos difíceis (17%) e fáceis (8%). Simulador de notas do AVA.">
+    <meta name="twitter:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
@@ -120,8 +127,16 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Calculadora Pesos Semanais Univesp",
-      "description": "Ferramenta para cálculo da média das atividades semanais com pesos variáveis.",
-      "author": { "@type": "Person", "name": "Estudante Univesp" }  
+      "url": "https://univespcalculadora.netlify.app/porcentagemsemanas.html",
+      "description": "Ferramenta para cálculo da média das atividades semanais com pesos variáveis (8%, 12%, 17%) para alunos da Univesp.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "author": { "@type": "Person", "name": "Estudante Univesp" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      }
     }
     </script>
 
@@ -130,7 +145,6 @@
       OneSignalDeferred.push(function(OneSignal) {
         OneSignal.init({
           appId: "c322be8d-cbcd-40a0-b928-5b3fff29e3ed",
-          /* Correção 1C: Removido safari_web_id placeholder */
           notifyButton: {
             enable: true,
             size: 'medium',
@@ -176,22 +190,24 @@
 </head>
 <body>
 
+    <h1 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Calculadora de Pesos Semanais Univesp: Média do AVA (8%, 12%, 17%)</h1>
+
     <header>
-        <h1>Pesos Semanais ⚖️</h1>
+        <h2 style="margin: 0; font-size: 1.5rem;">Pesos Semanais ⚖️</h2>
         <p>Média Ponderada das Atividades</p>
     </header>
 
     <div class="container">
         <div class="calc-container">
-            <button onclick="window.location.href='index.html'" class="btn-back">← Voltar ao Menu</button>
+            <button onclick="window.location.href='index.html'" class="btn-back" aria-label="Voltar para a página inicial">← Voltar ao Menu</button>
 
-            <button onclick="toggleExplain()" class="btn-help-link" style="width:100%; justify-content:center; margin-bottom: 20px;">
+            <button onclick="toggleExplain()" class="btn-help-link" style="width:100%; justify-content:center; margin-bottom: 20px;" aria-expanded="false" aria-controls="explain-box" aria-label="Entender como funcionam os pesos das semanas">
                 <i data-lucide="info" width="16"></i>
                 Como funcionam os pesos?
             </button>
             
-            <div id="explain-box">
-                <img src="cadasemana.webp" alt="Tabela de pesos" style="width:100%; border-radius:8px; margin-bottom:10px; border:1px solid #eee;">
+            <div id="explain-box" role="region" aria-live="polite">
+                <img src="cadasemana.webp" alt="Tabela demonstrativa dos pesos semanais da Univesp" style="width:100%; border-radius:8px; margin-bottom:10px; border:1px solid #eee;">
                 
                 <p><strong>Nem todas as semanas valem a mesma nota.</strong></p>
                 <ul style="margin-left: 20px; margin-top: 5px;">
@@ -205,47 +221,47 @@
             <div class="weeks-grid">
                 
                 <div class="input-week-group">
-                    <label>Semana 1 <span class="badge-weight w-low">8%</span></label>
-                    <input type="text" id="s1" placeholder="0 a 10" inputmode="decimal">
+                    <label for="s1">Semana 1 <span class="badge-weight w-low">8%</span></label>
+                    <input type="text" id="s1" placeholder="0 a 10" inputmode="decimal" aria-label="Insira a nota da Semana 1">
                 </div>
 
                 <div class="input-week-group">
-                    <label>Semana 2 <span class="badge-weight w-mid">12%</span></label>
-                    <input type="text" id="s2" placeholder="0 a 10" inputmode="decimal">
+                    <label for="s2">Semana 2 <span class="badge-weight w-mid">12%</span></label>
+                    <input type="text" id="s2" placeholder="0 a 10" inputmode="decimal" aria-label="Insira a nota da Semana 2">
                 </div>
 
                 <div class="input-week-group">
-                    <label>Semana 3 <span class="badge-weight w-high">17%</span></label>
-                    <input type="text" id="s3" placeholder="0 a 10" inputmode="decimal">
+                    <label for="s3">Semana 3 <span class="badge-weight w-high">17%</span></label>
+                    <input type="text" id="s3" placeholder="0 a 10" inputmode="decimal" aria-label="Insira a nota da Semana 3">
                 </div>
 
                 <div class="input-week-group">
-                    <label>Semana 4 <span class="badge-weight w-high">17%</span></label>
-                    <input type="text" id="s4" placeholder="0 a 10" inputmode="decimal">
+                    <label for="s4">Semana 4 <span class="badge-weight w-high">17%</span></label>
+                    <input type="text" id="s4" placeholder="0 a 10" inputmode="decimal" aria-label="Insira a nota da Semana 4">
                 </div>
 
                 <div class="input-week-group">
-                    <label>Semana 5 <span class="badge-weight w-high">17%</span></label>
-                    <input type="text" id="s5" placeholder="0 a 10" inputmode="decimal">
+                    <label for="s5">Semana 5 <span class="badge-weight w-high">17%</span></label>
+                    <input type="text" id="s5" placeholder="0 a 10" inputmode="decimal" aria-label="Insira a nota da Semana 5">
                 </div>
 
                 <div class="input-week-group">
-                    <label>Semana 6 <span class="badge-weight w-high">17%</span></label>
-                    <input type="text" id="s6" placeholder="0 a 10" inputmode="decimal">
+                    <label for="s6">Semana 6 <span class="badge-weight w-high">17%</span></label>
+                    <input type="text" id="s6" placeholder="0 a 10" inputmode="decimal" aria-label="Insira a nota da Semana 6">
                 </div>
 
                 <div class="input-week-group" style="grid-column: 1 / -1;">
-                    <label>Semana 7 <span class="badge-weight w-mid">12%</span></label>
-                    <input type="text" id="s7" placeholder="0 a 10" inputmode="decimal">
+                    <label for="s7">Semana 7 <span class="badge-weight w-mid">12%</span></label>
+                    <input type="text" id="s7" placeholder="0 a 10" inputmode="decimal" aria-label="Insira a nota da Semana 7">
                 </div>
 
             </div>
 
-            <button onclick="calcularSemanas()" class="btn-calc">Calcular Média</button>
+            <button onclick="calcularSemanas()" class="btn-calc" aria-label="Calcular a média ponderada de todas as semanas">Calcular Média</button>
             
-            <div id="resultado"></div>
+            <div id="resultado" aria-live="polite"></div>
 
-            <button onclick="limparSemanas()" class="btn-clear">
+            <button onclick="limparSemanas()" class="btn-clear" aria-label="Limpar todos os campos preenchidos">
                 <i data-lucide="trash-2" width="16"></i> Limpar Campos
             </button>
 
@@ -258,7 +274,15 @@
 
         function toggleExplain() {
             const box = document.getElementById('explain-box');
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+            const btnHelp = document.querySelector('.btn-help-link');
+            
+            if(box.style.display === 'block') {
+                box.style.display = 'none';
+                btnHelp.setAttribute('aria-expanded', 'false');
+            } else {
+                box.style.display = 'block';
+                btnHelp.setAttribute('aria-expanded', 'true');
+            }
         }
 
         function lerNota(id) {
@@ -333,6 +357,3 @@
 
 </body>
 </html>
-
-
-

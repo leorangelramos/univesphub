@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Univesp Hub | Calculadoram, Média Final, AVA, SEI, Exame</title>
+    <title>Univesp Hub | Calculadora, Média Final, AVA, SEI, Exame</title>
     <meta name="description" content="Calculadora de Notas Univesp NÃO OFICIAL: Calcule sua média final e nota de exame rapidamente. Acesse o AVA, SEI, SAE e o Manual do Aluno de forma descomplicada. Desenvolvido por um aluno.">
+    <meta name="keywords" content="Univesp, Calculadora de Notas, Média Final, Exame Univesp, AVA Univesp, SEI Univesp, Ferramentas Acadêmicas, PWA Univesp">
+    <meta name="author" content="Estudante Univesp">
+    <meta name="robots" content="index, follow">
     
     <link rel="icon" type="image/webp" href="Univesplogo.webp">
     <link rel="apple-touch-icon" href="Univesplogo.webp">
@@ -13,7 +16,17 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#b71c1c">
 
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://univespcalculadora.netlify.app/">
+    <meta property="og:title" content="Univesp Hub | Calculadora de Notas e Ferramentas">
+    <meta property="og:description" content="Calculadora de Notas Univesp: Calcule sua média final, nota de exame e acesse rapidamente o AVA, SEI e SAE. App não oficial feito por um aluno.">
     <meta property="og:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://univespcalculadora.netlify.app/">
+    <meta property="twitter:title" content="Univesp Hub | Calculadora de Notas e Ferramentas">
+    <meta property="twitter:description" content="Calculadora de Notas Univesp: Calcule sua média final, nota de exame e acesse rapidamente o AVA, SEI e SAE. App não oficial.">
+    <meta property="twitter:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
 
     <link rel="canonical" href="https://univespcalculadora.netlify.app/">
 
@@ -34,8 +47,9 @@
       "name": "Calculadora de Notas e Ferramentas Univesp (App Não Oficial)",
       "url": "https://univespcalculadora.netlify.app/",
       "image": "https://univespcalculadora.netlify.app/Univesplogo.webp",
-      "description": "Aplicativo web progressivo (PWA) e calculadora de notas NÃO OFICIAL para alunos da Univesp, incluindo ferramentas de cálculo de média, exame e links úteis.",
-      "applicationCategory": "EducationApplication",
+      "description": "Aplicativo web progressivo (PWA) e calculadora de notas NÃO OFICIAL para alunos da Univesp, incluindo ferramentas de cálculo de média, exame e links úteis para os portais da instituição.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
       "author": { 
         "@type": "Person", 
         "name": "Estudante Univesp" 
@@ -44,6 +58,11 @@
         "@type": "AggregateRating",
         "ratingValue": "4.8",
         "reviewCount": "250"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
       }
     }
     </script>
@@ -99,6 +118,7 @@
 </head>
 
 <body>
+        <h1 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Univesp Hub: Calculadora de Notas, Média Final, Exame e Acesso AVA</h1>
 
         <header>
             <h1>Oi, Aluno(a)!</h1>
@@ -107,70 +127,70 @@
         </header>
 
         <div class="container">
-            <button id="install-btn">
+            <button id="install-btn" aria-label="Instalar aplicativo Minhas Notas">
             <i data-lucide="download-cloud"></i>
             Baixar App - Minhas Notas 
         </button>
 
         <div class="menu-grid">
-            <a href="https://ava.univesp.br/" target="_blank" class="menu-item ava">
+            <a href="https://ava.univesp.br/" target="_blank" class="menu-item ava" aria-label="Acessar o AVA Univesp">
                 <div class="icon-box"><i data-lucide="monitor-play"></i></div>
                 <span>Acesso ao AVA</span>
             </a>
-            <a href="https://sei.univesp.br/" target="_blank" class="menu-item sei">
+            <a href="https://sei.univesp.br/" target="_blank" class="menu-item sei" aria-label="Acessar o SEI Univesp">
                 <div class="icon-box"><i data-lucide="file-text"></i></div>
                 <span>Acesso ao SEI</span>
             </a>
-            <a href="https://univesp.br/" target="_blank" class="menu-item">
+            <a href="https://univesp.br/" target="_blank" class="menu-item" aria-label="Acessar o Site Oficial da Univesp">
                 <div class="icon-box" style="background: #f3f4f6;">
                 <i data-lucide="globe" style="color: #374151;"></i>
                 </div>
                 <span>Site Univesp</span>
             </a>
 
-            <a href="https://www.youtube.com/@univesptv/featured" target="_blank"   class="menu-item">
+            <a href="https://www.youtube.com/@univesptv/featured" target="_blank"   class="menu-item" aria-label="Acessar o Canal da Univesp TV no YouTube">
                 <div class="icon-box" style="background: #ffebee;">
                 <i data-lucide="youtube" style="color: #d32f2f;"></i>
                 </div>
                 <span>Canal YouTube</span>
             </a>
             
-            <a href="https://atendimento.univesp.br/sae/portal.html" target="_blank" class="menu-item sae">
+            <a href="https://atendimento.univesp.br/sae/portal.html" target="_blank" class="menu-item sae" aria-label="Acessar o Sistema de Atendimento ao Estudante (SAE)">
                 <div class="icon-box"><i data-lucide="headset"></i></div>
                 <span>Acesso ao SAE</span>
             </a>
-            <a href="https://apps.univesp.br/manual-do-aluno/" target="_blank" class="menu-item">
+            <a href="https://apps.univesp.br/manual-do-aluno/" target="_blank" class="menu-item" aria-label="Acessar o Manual do Aluno Univesp">
                 <div class="icon-box"><i data-lucide="lightbulb"></i></div>
                 <span>Manual do aluno</span>
             </a>
 
-            <a href="media-final.html" class="menu-item">
+            <a href="media-final.html" class="menu-item" aria-label="Calculadora de Média Regular">
                 <div class="icon-box"><i data-lucide="calculator"></i></div>
                 <span>Média Regular<small></small></span>
             </a>
-            <a href="exame.html" class="menu-item">
+            <a href="exame.html" class="menu-item" aria-label="Calculadora para Nota de Exame">
                 <div class="icon-box"><i data-lucide="alert-triangle"></i></div>
                 <span>Calcular Exame</span>
             </a>
-            <a href="porcentagemsemanas.html" class="menu-item">
+            <a href="porcentagemsemanas.html" class="menu-item" aria-label="Visualizar Pesos Semanais das Atividades">
                 <div class="icon-box"><i data-lucide="bar-chart-2"></i></div>
                 <span>Pesos Semanais</span>
             </a>
     
-            <a href="calendario.html" class="menu-item">
+            <a href="calendario.html" class="menu-item" aria-label="Acessar o Calendário Acadêmico">
                 <div class="icon-box"><i data-lucide="calendar"></i></div>
                 <span>Calendário</span>
             </a>
-            <a href="prazo-final-de-entrega-univesp-alarme-atividades.html" class="menu-item">
+            <a href="prazo-final-de-entrega-univesp-alarme-atividades.html" class="menu-item" aria-label="Visualizar Prazos Finais de Entrega">
                 <div class="icon-box" style="background: #ffe5e5;"><i data-lucide="clock" style="color: #b71c1c;"></i></div>
                 <span>Prazos de entrega<small></small></span>
             </a>
 
-            <a href="progresso.html" class="menu-item">
+            <a href="minha-grade-de-materias-curso-univesp.html" class="menu-item" aria-label="Visualizar Minha Grade e Progresso">
                 <div class="icon-box" style="background: #e8f5e9;"><i data-lucide="check-square" style="color: #2e7d32;"></i></div>
                 <span>Minha Grade<small></small></span>
             </a>
-            <a href="tcc-pi-estagio.html" class="menu-item">
+            <a href="tcc-pi-estagio.html" class="menu-item" aria-label="Informações sobre TCC, Projeto Integrador e Estágio">
                 <div class="icon-box" style="background: #e3f2fd;">
                 <i data-lucide="graduation-cap" style="color: #1976d2;"></i>
                 </div>
@@ -192,138 +212,7 @@
 
         </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-
-            const style = document.createElement('style');
-            style.innerHTML = `
-                #aviso-overlay {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.9);
-                    z-index: 9999;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    backdrop-filter: blur(5px);
-                }
-
-                #aviso-box {
-                    background: white;
-                    padding: 25px;
-                    border-radius: 15px;
-                    max-width: 90%;
-                    width: 400px;
-                    text-align: center;
-                    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-                    font-family: sans-serif;
-                    animation: surgir 0.3s ease-out;
-                }
-
-                #aviso-box h2 {
-                    color: #d32f2f;
-                    margin-top: 0;
-                }
-
-                #aviso-box p {
-                    color: #333;
-                    font-size: 14px;
-                    line-height: 1.5;
-                    margin-bottom: 20px;
-                }
-
-                .btn-aviso {
-                    padding: 10px 20px;
-                    border: none;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    font-weight: bold;
-                    font-size: 14px;
-                    margin: 5px;
-                    transition: 0.2s;
-                }
-
-                #btn-concordo {
-                    background-color: #d32f2f;
-                    color: white;
-                }
-
-                #btn-nao-concordo {
-                    background-color: #e0e0e0;
-                    color: #333;
-                }
-
-                @keyframes surgir {
-                    from { transform: scale(0.8); opacity: 0; }
-                    to { transform: scale(1); opacity: 1; }
-                }
-            `;
-            document.head.appendChild(style);
-
-            const overlay = document.createElement('div');
-            overlay.id = 'aviso-overlay';
-
-            overlay.innerHTML = `
-                <div id="aviso-box">
-                    <h2>⚠️ Aviso Importante</h2>
-                    <p>
-                        Este é um aplicativo <strong>NÃO OFICIAL</strong> desenvolvido por um aluno.
-                        <br><br>
-                        As ferramentas aqui disponíveis servem apenas para apoio e 
-                        <strong>podem conter erros ou estarem desatualizadas</strong>.
-                        <br><br>
-                        Ao continuar, você concorda que deve sempre conferir suas notas e informações 
-                        nos canais oficiais da Univesp.
-                    </p>
-                    <div>
-                        <button id="btn-nao-concordo" class="btn-aviso">Não Concordo</button>
-                        <button id="btn-concordo" class="btn-aviso">Li e Concordo</button>
-                    </div>
-                </div>
-            `;
-
-            document.body.appendChild(overlay);
-
-            document.getElementById('btn-concordo').onclick = function() {
-                document.body.removeChild(overlay);
-            };
-
-            document.getElementById('btn-nao-concordo').onclick = function() {
-                window.location.href = "https://ava.univesp.br/?new_loc=%2Fultra%2F";
-            };
-        });
-
-        lucide.createIcons();
-        
-        let deferredPrompt;
-        const installBtn = document.getElementById('install-btn');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installBtn.style.display = 'flex'; 
-        });
-
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    installBtn.style.display = 'none';
-                }
-                deferredPrompt = null;
-            }
-        });
-
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js');
-            });
-        }
-    </script>
+    
 
 </body>
 

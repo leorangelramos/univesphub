@@ -5,15 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Calculadora Média Regular | Univesp</title>
-    <meta name="description" content="Calcule sua média regular da Univesp (40% AVA + 60% Prova). Saiba exatamente quanto precisa tirar na prova para ser aprovado direto.">
-    <meta name="keywords" content="Univesp, calculadora univesp, média univesp, calcular nota univesp, notas AVA, simulador de notas">
+    <meta name="description" content="Calcule sua média regular da Univesp (40% AVA + 60% Prova). Saiba exatamente quanto precisa tirar na prova para ser aprovado direto sem ir para o exame.">
+    <meta name="keywords" content="Univesp, calculadora univesp, média univesp, calcular nota univesp, notas AVA, simulador de notas, calculadora de média, aprovação univesp">
+    <meta name="author" content="Estudante Univesp">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://univespcalculadora.netlify.app/media-final.html">
 
     <meta property="og:title" content="Calculadora Média Regular | Univesp">
-    <meta property="og:description" content="Calcule rapidamente sua média da Univesp considerando 40% do AVA e 60% da Prova.">
+    <meta property="og:description" content="Calcule rapidamente sua média da Univesp considerando 40% do AVA e 60% da Prova. Saiba se já passou!">
     <meta property="og:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
     <meta property="og:url" content="https://univespcalculadora.netlify.app/media-final.html">
     <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora Média Regular | Univesp">
+    <meta name="twitter:description" content="Calcule rapidamente sua média da Univesp considerando 40% do AVA e 60% da Prova. Simulador oficial de notas.">
+    <meta name="twitter:image" content="https://univespcalculadora.netlify.app/Univesplogo.webp">
     
     <link rel="icon" type="image/webp" href="Univesplogo.webp">
     <link rel="apple-touch-icon" href="Univesplogo.webp">
@@ -31,12 +38,18 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Calculadora Média Regular Univesp",
-      "description": "Calcule sua média final oficial considerando notas das atividades (AVA) e Prova.",
+      "url": "https://univespcalculadora.netlify.app/media-final.html",
+      "description": "Aplicativo web gratuito para simulação e cálculo da média final oficial considerando as notas das atividades (AVA) e da Prova regular da Univesp.",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "All",
       "author": { 
         "@type": "Person", 
         "name": "Estudante Univesp" 
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
       }
     }
     </script> 
@@ -167,55 +180,57 @@
 </head>
 <body>
 
+    <h1 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Calculadora de Média Regular Univesp: Calcule Notas do AVA e da Prova</h1>
+
     <header>
-        <h1>Calculadora 🧮</h1>
+        <h2 style="margin: 0; font-size: 1.5rem;">Calculadora 🧮</h2>
         <p>Média Regular (40% AVA + 60% Prova)</p>
     </header>
 
     <div class="container">
         <div class="calc-container">
             
-            <button onclick="toggleHelp()" class="btn-help-link" id="btn-toggle-help">
+            <button onclick="toggleHelp()" class="btn-help-link" id="btn-toggle-help" aria-expanded="false" aria-controls="help-inline" aria-label="Abrir seção de ajuda sobre onde encontrar as notas">
                 <i data-lucide="help-circle" width="16"></i>
                 Onde achar minhas notas? <span id="seta-help">▼</span>
             </button>
 
-            <div id="help-inline">
+            <div id="help-inline" role="region" aria-live="polite">
                 <p>1. Nota das Atividades (AVA):</p>
                 <span>Fica no canto direito da disciplina no Blackboard.</span>
-                <img src="avanota.webp" alt="Exemplo nota AVA" class="tutorial-img">
+                <img src="avanota.webp" alt="Exemplo mostrando onde encontrar a nota do AVA no Blackboard" class="tutorial-img">
                 
                 <p>2. Nota da Prova (SEI):</p>
                 <span>Acesse o Histórico Escolar no sistema SEI.</span>
-                <img src="seinota.png" alt="Exemplo nota SEI" class="tutorial-img">
+                <img src="seinota.png" alt="Exemplo mostrando onde encontrar a nota da prova no sistema SEI" class="tutorial-img">
                 
                 <div style="text-align: right; margin-top: 10px;">
-                    <button onclick="toggleHelp()" style="background:none; border:none; color:#666; cursor:pointer; font-size: 0.8rem; text-decoration: underline;">Fechar Ajuda</button>
+                    <button onclick="toggleHelp()" style="background:none; border:none; color:#666; cursor:pointer; font-size: 0.8rem; text-decoration: underline;" aria-label="Fechar seção de ajuda">Fechar Ajuda</button>
                 </div>
             </div>
 
-            <div id="msg-erro"></div>
+            <div id="msg-erro" role="alert"></div>
 
             <div class="input-group">
-                <label>Nota das Atividades (AVA):</label>
-                <input type="text" id="ativ" placeholder="Ex: 9.5" inputmode="decimal">
+                <label for="ativ">Nota das Atividades (AVA):</label>
+                <input type="text" id="ativ" placeholder="Ex: 9.5" inputmode="decimal" aria-label="Insira a sua nota das atividades do AVA">
             </div>
 
             <div class="input-group">
-                <label>Nota da Prova (SEI):</label>
-                <input type="text" id="prova" placeholder="Ex: 6.0" inputmode="decimal">
+                <label for="prova">Nota da Prova (SEI):</label>
+                <input type="text" id="prova" placeholder="Ex: 6.0" inputmode="decimal" aria-label="Insira a sua nota da prova obtida no SEI">
             </div>
 
-            <button onclick="calcularMedia()" class="btn-calc">Calcular Média</button>
-            <button onclick="simularNota()" class="btn-simular">Quanto preciso na Prova?</button>
+            <button onclick="calcularMedia()" class="btn-calc" aria-label="Calcular a média final da disciplina">Calcular Média</button>
+            <button onclick="simularNota()" class="btn-simular" aria-label="Simular quanto precisa tirar na prova">Quanto preciso na Prova?</button>
             
-            <button onclick="limparTudo()" class="btn-clear">
+            <button onclick="limparTudo()" class="btn-clear" aria-label="Limpar todos os campos da calculadora">
                 <i data-lucide="trash-2" width="18"></i> Limpar Tudo
             </button>
 
-            <div id="resultado"></div>
+            <div id="resultado" aria-live="polite"></div>
 
-            <button onclick="window.location.href='index.html'" class="btn-back">← Voltar ao Menu</button>
+            <button onclick="window.location.href='index.html'" class="btn-back" aria-label="Voltar para a página inicial">← Voltar ao Menu</button>
         </div>
     </div>
 
@@ -227,13 +242,16 @@
         function toggleHelp() {
             const helpDiv = document.getElementById('help-inline');
             const seta = document.getElementById('seta-help');
+            const btnToggle = document.getElementById('btn-toggle-help');
             
             if (helpDiv.style.display === 'block') {
                 helpDiv.style.display = 'none';
                 seta.innerText = '▼';
+                btnToggle.setAttribute('aria-expanded', 'false');
             } else {
                 helpDiv.style.display = 'block';
                 seta.innerText = '▲';
+                btnToggle.setAttribute('aria-expanded', 'true');
             }
         }
 

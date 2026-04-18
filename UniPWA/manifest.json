@@ -9,12 +9,12 @@
   "icons": [
     {
       "src": "Univesplogo.webp",
-      "sizes": "192x192",
+      "sizes": "292x292",
       "type": "image/webp"
     },
     {
       "src": "Univesplogo.webp",
-      "sizes": "512x512",
+      "sizes": "712x712",
       "type": "image/webp"
     }
   ]
