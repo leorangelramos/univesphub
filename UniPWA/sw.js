@@ -1,4 +1,4 @@
-const CACHE_NAME = 'univesp-calc-v4'; // Atualizei a versão para v4 para forçar atualização
+const CACHE_NAME = 'univesp-calc-v4'; 
 const ASSETS = [
   '/',
   '/index.html',
@@ -7,12 +7,6 @@ const ASSETS = [
   '/exame.html',
   '/porcentagemsemanas.html',
   '/projetointegrador.html',
-  '/horas.html',
-  '/tcc.html',
-  '/estagio.html',
-  '/calendario.html',
-  '/resumo.html',
-  '/abnt.html',
   '/metas.html',  
   '/dicas.html',       
   '/style.css',
