@@ -121,16 +121,17 @@
         <h1 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Univesp: Calculadora de Notas e Média</h1>
 
         <header>
-            <h2>Oi, Aluno(a)! <br> Acesse o Hub.</h2>
+            <h2>Oi, Aluno(a)! Acesse o Hub.</h2>
             <p>DATA DE REMATRÍCULA: <strong> 30/06 - 06/07</strong></p>
+            <p>App não oficial! De: Novembro/2025. Pode conter erros. <br> Verifique os portais da Univesp. </p>
         </header>
 
-        <div class="container">
-            <button id="install-btn" aria-label="Instalar aplicativo Minhas Notas">
-            <i data-lucide="download-cloud"></i>
-            Baixar App - Minhas Notas 
-        </button>
 
+
+
+
+        <div class="container">
+        
         <div class="menu-grid">
             <a href="https://ava.univesp.br/" target="_blank" class="menu-item ava" aria-label="Acessar o AVA Univesp">
                 <div class="icon-box"><i data-lucide="monitor-play"></i></div>
@@ -193,7 +194,6 @@
                 <span>Minha <br> Grade<small></small></span>
             </a>
 
-
         </div>
 
         <div class="social-share" style="text-align: center; margin: 30px 0 10px 0; padding: 15px; background: #f9fafb; border-radius: 12px;">
@@ -223,20 +223,26 @@
                 <a href="https://www.instagram.com/" target="_blank" style="display: flex; justify-content: center; align-items: center; gap: 4px; padding: 8px 5px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 500; font-family: 'Inter', sans-serif; font-size: 11px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 100%; box-sizing: border-box;">
                     <i data-lucide="instagram" style="width: 14px; height: 14px;"></i> Instagram
                 </a>
-                
             </div>
+
+
+
+            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #e5e7eb;">
+                <p style="margin-bottom: 12px; font-weight: 700; color: #374151; font-family: 'Poppins', sans-serif; font-size: 13px; text-transform: uppercase;">Download</p>
+                <div style="display: flex; justify-content: center; gap: 12px;">
+                    <button id="install-btn" aria-label="Instalar no Android" style="display: flex; justify-content: center; align-items: center; gap: 6px; padding: 8px 16px; background: #3DDC84; color: #fff; border: none; border-radius: 8px; font-weight: 600; font-family: 'Inter', sans-serif; font-size: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); cursor: pointer; width: 130px; flex: 0 0 130px; box-sizing: border-box;">
+                        <i data-lucide="smartphone" style="width: 16px; height: 16px;"></i> Android
+                    </button>
+                    <button aria-label="Instruções para iOS" style="display: flex; justify-content: center; align-items: center; gap: 6px; padding: 8px 16px; background: #000000; color: #fff; border: none; border-radius: 8px; font-weight: 600; font-family: 'Inter', sans-serif; font-size: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); cursor: pointer; width: 130px; flex: 0 0 130px; box-sizing: border-box;" onclick="alert('Para instalar no iOS:\n\n1. Abra este site no Safari.\n2. Toque no botão Compartilhar (quadrado com uma seta para cima).\n3. Role para baixo e selecione \'Adicionar à Tela de Início\'.\n4. Confirme tocando em \'Adicionar\'.')">
+                        <i data-lucide="apple" style="width: 16px; height: 16px;"></i> iOS
+                    </button>
+                </div>
+            </div>
+
+
         </div>
 
-        <footer>
-        <div class="alert-box-static">
-            <div class="alert-title">
-                App não oficial! De: Novembro/2025.
-            </div>
-            <p> App pode conter informações desatualizadas. <br>
-                Verifique os portais da Univesp. 
-            </p>
-        </div>
-        </footer>
+
 
         </div>
 
@@ -244,6 +250,35 @@
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
+
+        // Script para fazer o botão de download do Android funcionar (PWA)
+        let deferredPrompt = null;
+        const installBtn = document.getElementById('install-btn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Previne o Chrome de mostrar o mini-infobar automaticamente
+            e.preventDefault();
+            // Salva o evento para ser acionado depois
+            deferredPrompt = e;
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt !== null) {
+                // Mostra o prompt de instalação
+                deferredPrompt.prompt();
+                // Aguarda a resposta do usuário
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('Usuário aceitou a instalação do PWA');
+                } else {
+                    console.log('Usuário recusou a instalação do PWA');
+                }
+                // Limpa a variável, já que o prompt só pode ser usado uma vez
+                deferredPrompt = null;
+            } else {
+                alert('A instalação direta pelo botão não está disponível neste momento (ou o app já está instalado). Tente instalar pelo menu do seu navegador selecionando "Adicionar à tela inicial".');
+            }
+        });
     </script>
     
 </body>
