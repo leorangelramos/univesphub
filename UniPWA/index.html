@@ -39,6 +39,58 @@
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
     <link rel="stylesheet" href="main.css">
+    
+    <style>
+        /* Estilos adicionais para os novos botões e accordion */
+        .extra-footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px auto 40px auto;
+            max-width: 500px;
+            padding: 0 15px;
+        }
+        .btn-extra {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-extra:active { transform: scale(0.95); }
+        .btn-biblio { background: #1976d2; color: #fff; }
+        .btn-faq { background: #4b5563; color: #fff; }
+
+        .accordion-box {
+            display: none;
+            margin: 0 15px 30px 15px;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .accordion-box h3 { color: #b71c1c; margin-bottom: 15px; font-family: 'Poppins', sans-serif; border-bottom: 2px solid #f3f4f6; padding-bottom: 5px; }
+        .accordion-box h4 { margin-top: 15px; color: #1f2937; font-size: 15px; }
+        .accordion-box p, .accordion-box li { color: #4b5563; font-size: 13px; line-height: 1.6; }
+        .accordion-box ul { padding-left: 18px; margin-top: 5px; }
+    </style>
   
     <script type="application/ld+json">
     {
@@ -121,7 +173,7 @@
         <h1 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Univesp: Calculadora de Notas e Média</h1>
 
         <header>
-            <h2>Oi, Aluno(a)! Acesse o Hub.</h2>
+            <p><stron>Oi, Aluno(a)! Acesse o Hub.</p>
             <p>DATA DE REMATRÍCULA: <strong> 30/06 - 06/07</strong></p>
             <p>App não oficial! De: Novembro/2025. Pode conter erros. <br> Verifique os portais da Univesp. </p>
         </header>
@@ -240,13 +292,58 @@
 
         </div>
 
+        <div class="extra-footer-buttons">
+            <a href="https://www.bvirtual.com.br/" target="_blank" class="btn-extra btn-biblio">
+                <i data-lucide="book-open"></i> Biblioteca
+            </a>
+            <button class="btn-extra btn-faq" onclick="toggleAccordion()">
+                <i data-lucide="help-circle"></i> Dúvidas
+            </button>
+        </div>
 
+        <div id="accordion-info" class="accordion-box">
+            <h3>Sobre o UniHub</h3>
+            <p>O <strong>UniHub</strong> é um facilitador acadêmico projetado para centralizar sua rotina na Univesp em um único lugar, economizando tempo e evitando a perda de prazos.</p>
+            
+            <h4>O que você encontra aqui:</h4>
+            <ul>
+                <li><strong>Acesso Direto:</strong> AVA, SEI, Site Oficial, YouTube Univesp e SAE.</li>
+                <li><strong>Acadêmico:</strong> Resumos de TCC, informações de PI e Estágio.</li>
+                <li><strong>Calculadoras:</strong> Média Final, Semanal e simulador de Exame.</li>
+                <li><strong>Organização:</strong> Calendário, montagem de grade, anotação de notas e alarmes de entrega.</li>
+            </ul>
+
+            <h4>Glossário de Termos:</h4>
+            <ul>
+                <li><strong>AVA:</strong> Ambiente Virtual de Aprendizagem (onde as aulas acontecem).</li>
+                <li><strong>SEI:</strong> Sistema Escolar Integrado (gestão de notas e documentos).</li>
+                <li><strong>SAE:</strong> Sistema de Atendimento ao Estudante (suporte e chamados).</li>
+                <li><strong>REA:</strong> Recurso Educacional Aberto (materiais extras).</li>
+                <li><strong>Eixo:</strong> O núcleo temático do seu curso (ex: Computação, Negócios).</li>
+                <li><strong>DP / RE:</strong> Dependência ou Reprovação em uma disciplina.</li>
+                <li><strong>Trancamento:</strong> Pausa oficial na matrícula por tempo determinado.</li>
+            </ul>
+
+            <h4>O que é um PWA?</h4>
+            <p>PWA (Progressive Web App) é uma tecnologia que permite que este site funcione como um aplicativo no seu celular sem ocupar espaço de memória exagerado. Ele funciona offline em algumas partes e pode ser instalado direto pelo navegador.</p>
+        </div>
 
         </div>
 
     <script>
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
+        }
+
+        // Função para o Accordion de Dúvidas
+        function toggleAccordion() {
+            const box = document.getElementById('accordion-info');
+            if (box.style.display === 'block') {
+                box.style.display = 'none';
+            } else {
+                box.style.display = 'block';
+                box.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         // Script para fazer o botão de download do Android funcionar (PWA)
